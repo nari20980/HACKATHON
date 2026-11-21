@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Switcher — Reaction &amp; Clicker Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">⚡</div>
+      <div>
+        <h1>Arcade <span>Switcher</span></h1>
+        <p>Switch between Reaction Speed and Timed Clicker Test</p>
+      </div>
+    </div>
+
+    <nav class="game-switcher" aria-label="Game Switcher">
+      <a class="ghost-btn" href="main.html">🏠 Main Page</a>
+      <button type="button" class="game-btn active" id="btnGameReaction" data-game="reaction">⚡ Reaction Test</button>
+      <button type="button" class="game-btn" id="btnGameClicker" data-game="clicker">🖱️ Clicker Test</button>
+      <button type="button" class="ghost-btn" id="btnResetAll">Reset</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Reaction Test Panel -->
+    <section class="card glass" id="reactionPanel" aria-labelledby="reactionHeading">
+      <div class="card-head">
+        <div>
+          <span class="tag tag-cyan">GAME 01 • REFLEX</span>
+          <h2 id="reactionHeading">Reaction Speed Test</h2>
+        </div>
+        <div class="stats-row">
+          <div class="stat-pill"><span>BEST</span><strong id="rxBest">-- ms</strong></div>
+          <div class="stat-pill"><span>LAST</span><strong id="rxLast">-- ms</strong></div>
+        </div>
+      </div>
+
+      <div class="arena-pad" id="rxPad" tabindex="0" role="button" aria-label="Reaction Test Pad — click or press Space">
+        <div class="pad-emoji" id="rxEmoji">🎯</div>
+        <h3 id="rxHeading">Click or Press SPACE to Start</h3>
+        <p id="rxCaption">Wait for green, then click as fast as you can.</p>
+      </div>
+    </section>
+
+    <!-- Clicker Test Panel -->
+    <section class="card glass hidden" id="clickerPanel" aria-labelledby="clickerHeading">
+      <div class="card-head">
+        <div>
+          <span class="tag tag-violet">GAME 02 • TIMED CLICKER</span>
+          <h2 id="clickerHeading">Clicker Count Test</h2>
+        </div>
+        <div class="duration-group" role="group" aria-label="Timer Duration">
+          <button type="button" class="dur-btn" data-seconds="1">1s</button>
+          <button type="button" class="dur-btn" data-seconds="2">2s</button>
+          <button type="button" class="dur-btn active" data-seconds="5">5s</button>
+          <button type="button" class="dur-btn" data-seconds="10">10s</button>
+          <button type="button" class="dur-btn" data-seconds="60">60s</button>
+        </div>
+      </div>
+
+      <div class="stats-row clicker-stats">
+        <div class="stat-pill"><span>TIME LEFT</span><strong id="clkTime">5.0s</strong></div>
+        <div class="stat-pill"><span>CLICKS</span><strong id="clkCount">0</strong></div>
+        <div class="stat-pill"><span>CPS</span><strong id="clkCps">0.00</strong></div>
+        <div class="stat-pill"><span>BEST CLICKS</span><strong id="clkBest">0</strong></div>
+      </div>
+
+      <button type="button" class="clicker-pad" id="clkPad">
+        <span class="pad-emoji" id="clkEmoji">🖱️</span>
+        <strong id="clkHeading">CLICK TO COUNT (5s)</strong>
+        <small id="clkCaption">Timer starts on your first click.</small>
+      </button>
+    </section>
+  </main>
+
+  <script src="style.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Shop — Spend Coins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shop.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🛒</div>
+      <div>
+        <h1>Arcade <span>Shop</span></h1>
+        <p>Spend your coins on XP boosts, coin packs, and perks</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <a class="nav-link active" href="shop.html">🛒 Shop</a>
+      <span class="coin-pill" id="shopCoinBalance">COINS: 75</span>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="wallet-banner glass" aria-label="Player Wallet and Level">
+      <div>
+        <span class="tag tag-cyan" id="shopLevelTag">LEVEL 1 • ROOKIE</span>
+        <h2 id="shopCoinsHeading">75 Coins Available</h2>
+        <p id="shopXpSubtext">0 XP • Next level needs 100 XP</p>
+      </div>
+      <div class="owned-summary" id="ownedSummary">Owned Perks: 0</div>
+    </section>
+
+    <section class="panel glass" aria-labelledby="shopCatalogHeading">
+      <div class="panel-head">
+        <span class="tag tag-violet">ITEM STORE</span>
+        <h2 id="shopCatalogHeading">Available Items</h2>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

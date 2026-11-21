@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reaction Speed Arena — Pro Reflex Suite</title>
+  <script src="arena.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="arena.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-emerald"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">⚡</div>
+      <div>
+        <div class="brand-title-row">
+          <h1>Reaction <span>Speed Arena</span></h1>
+          <span class="pro-badge">PRO SUITE</span>
+        </div>
+        <p>Precision Reflex Lab • Telemetry • Submission &amp; Support</p>
+      </div>
+    </div>
+
+    <div class="top-controls">
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" id="tabCampaign" data-mode="campaign">Campaign</button>
+        <button class="mode-tab" id="tabAverage" data-mode="average">5-Try Avg</button>
+        <button class="mode-tab" id="tabBlitz" data-mode="blitz">30s Blitz</button>
+      </div>
+      <button class="icon-btn" id="btnSound" title="Toggle Sound">🔊 SFX</button>
+      <button class="icon-btn" id="btnKeyboardGuide" title="Keyboard Shortcuts">⌨️ Keys</button>
+      <a class="icon-btn highlight-link" href="#submissionSection">📋 Submission</a>
+      <a class="icon-btn" href="#contactSection">✉️ Contact</a>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- Left / Center Arena -->
+    <section class="stage-col">
+      <div class="hud-banner glass">
+        <div class="hud-info">
+          <div class="hud-badges">
+            <span class="badge badge-cyan" id="badgeMode">LEVEL 1 / 5</span>
+            <span class="badge badge-amber" id="badgeStreak">🔥 0 STREAK</span>
+            <span class="badge badge-violet" id="badgeRank">RANK: ROOKIE</span>
+          </div>
+          <h2 id="hudTitle">Level 1: Warmup</h2>
+          <p id="hudSubtitle">Wait for emerald green, then click or tap SPACE as fast as possible.</p>
+        </div>
+
+        <div class="hud-metrics">
+          <div class="metric-box hidden" id="blitzTimerBox">
+            <span>CLOCK</span>
+            <strong class="amber-text" id="blitzClock">30.0s</strong>
+          </div>
+          <div class="metric-box">
+            <span id="targetLabel">TARGET</span>
+            <strong class="cyan-text" id="targetValue">&lt; 350 ms</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-strip" id="levelStrip"></div>
+
+      <div class="reaction-stage" id="reactionStage" tabindex="0" role="button" aria-label="Reaction Arena">
+        <canvas class="fx-canvas" id="fxCanvas"></canvas>
+        <div class="flash-overlay" id="flashOverlay"></div>
+
+        <div class="stage-center">
+          <div class="pulse-ring" id="pulseRing">
+            <span id="stageEmoji">🎯</span>
+          </div>
+          <h2 id="stageHeading">Click or Press SPACE</h2>
+          <div class="score-readout hidden" id="scoreReadout">0 ms</div>
+          <div class="rating-pill hidden" id="ratingPill">LIGHTNING</div>
+          <p id="stageCaption">Green = Go • Amber = Fake Trap (Hold) • Red = Wait</p>
+        </div>
+
+        <div class="stage-bottom">
+          <span>[CLICK / TAP / SPACE] TO ACT</span>
+          <span id="signalReadout">STATUS: STANDBY</span>
+        </div>
+      </div>
+
+      <!-- Trend Sparkline Card -->
+      <div class="trend-card glass">
+        <div class="trend-head">
+          <div>
+            <h3>Reaction Consistency Curve</h3>
+            <p>Last 12 valid hits (lower is faster)</p>
+          </div>
+          <span class="pill-tag" id="consistencyScore">CONSISTENCY: --</span>
+        </div>
+        <canvas id="trendCanvas" width="760" height="110"></canvas>
+      </div>
+    </section>
+
+    <!-- Right Telemetry Sidebar -->
+    <aside class="telemetry-col">
+      <div class="panel glass">
+        <div class="panel-top">
+          <h3>Personal Bests</h3>
+          <button class="text-action" id="btnResetStats">Reset Data</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span>ALL-TIME BEST</span>
+            <strong class="cyan-text" id="kpiBest">-- ms</strong>
+          </div>
+          <div class="kpi-card">
+            <span>SESSION AVG</span>
+            <strong id="kpiAvg">-- ms</strong>
+          </div>
+          <div class="kpi-card">
+            <span>BLITZ HIGH</span>
+            <strong class="amber-text" id="kpiBlitz">0 HITS</strong>
+          </div>
+          <div class="kpi-card">
+            <span>ACCURACY</span>
+            <strong class="green-text" id="kpiAccuracy">--%</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-top">
+          <h3>Speed Benchmarks</h3>
+          <span class="pill-tag">LOWER = FASTER</span>
+        </div>
+        <div class="benchmark-list" id="benchmarkList"></div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-top">
+          <h3>Run History</h3>
+          <span class="pill-tag" id="historyCount">0 RUNS</span>
+        </div>
+        <ul class="history-list" id="historyList">
+          <li class="history-empty">No runs recorded yet.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Student Submission Section -->
+  <section class="section-shell glass" id="submissionSection">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">ONLINE CLASS SUBMISSION</span>
+        <h2>Student Project Submission</h2>
+      </div>
+      <div class="header-btns">
+        <button class="ghost-action" id="btnCopySummary">📄 Copy Summary</button>
+        <button class="primary-action" id="btnEditSubmission">✏️ Edit Details</button>
+      </div>
+    </div>
+
+    <div class="submission-grid">
+      <div class="sub-tile">
+        <span class="sub-label">Student Full Name</span>
+        <p class="sub-value" id="dispName">Jordan Vance</p>
+      </div>
+      <div class="sub-tile">
+        <span class="sub-label">Project Title &amp; Short Description</span>
+        <p class="sub-value">
+          <strong id="dispTitle">Reaction Speed Arena</strong> —
+          <span id="dispDesc">A multi-mode reflex &amp; timing web application featuring 5 escalating levels, amber decoy traps, 5-try average &amp; 30s blitz modes, real-time consistency charts, and benchmark comparisons.</span>
+        </p>
+      </div>
+      <div class="sub-tile">
+        <span class="sub-label">Chosen Option from Online Class</span>
+        <p class="sub-value" id="dispOption">Option 1: Interactive Reaction Speed Game</p>
+      </div>
+      <div class="sub-tile">
+        <span class="sub-label">Credits / Originality</span>
+        <p class="sub-value" id="dispCredits">Original project created for this online class using semantic HTML5, modern CSS3, and vanilla JavaScript.</p>
+      </div>
+    </div>
+    <div class="copy-toast hidden" id="copyToast">Submission summary copied to clipboard!</div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section class="section-shell glass" id="contactSection">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">CONTACT US</span>
+        <h2>Feedback, Questions &amp; Support</h2>
+      </div>
+      <span class="pill-tag" id="contactBadge">ONLINE</span>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info-box">
+        <h3>Get in Touch</h3>
+        <p>Have questions about the submission, want to suggest new reflex challenges, or report an issue? Send a note using the form.</p>
+        <div class="contact-details">
+          <div><span>Project</span><strong>Reaction Speed Arena</strong></div>
+          <div><span>Support Email</span><strong>support@reactionarena.local</strong></div>
+          <div><span>Status</span><strong>Ready for Class Review</strong></div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="field-row">
+          <label>
+            Your Name
+            <input type="text" id="cName" placeholder="Enter your name" required />
+          </label>
+          <label>
+            Your Email
+            <input type="email" id="cEmail" placeholder="name@example.com" required />
+          </label>
+        </div>
+        <label>
+          Topic
+          <select id="cTopic">
+            <option value="Project Feedback">Project Feedback</option>
+            <option value="Class Submission Question">Class Submission Question</option>
+            <option value="Bug Report">Bug Report</option>
+            <option value="High Score Share">High Score Share</option>
+          </select>
+        </label>
+        <label>
+          Message
+          <textarea id="cMessage" rows="3" placeholder="Write your message here..." required></textarea>
+        </label>
+        <div class="contact-actions">
+          <button type="submit" class="primary-action">Send Message</button>
+          <span class="contact-status" id="contactStatus"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Submission Modal -->
+  <div class="modal-overlay hidden" id="submissionModal">
+    <div class="modal-panel glass">
+      <div class="modal-head">
+        <h3>Edit Student Submission</h3>
+        <button class="close-x" id="btnCloseModal">✕</button>
+      </div>
+      <form class="modal-form" id="submissionForm">
+        <label>
+          Full Name
+          <input type="text" id="inName" required />
+        </label>
+        <label>
+          Project Title
+          <input type="text" id="inTitle" required />
+        </label>
+        <label>
+          Short Description
+          <textarea id="inDesc" rows="3" required></textarea>
+        </label>
+        <label>
+          Chosen Option from Online Class
+          <input type="text" id="inOption" required />
+        </label>
+        <label>
+          Credits / Originality Note
+          <textarea id="inCredits" rows="2" required></textarea>
+        </label>
+        <div class="modal-btns">
+          <button type="button" class="ghost-action" id="btnCancelModal">Cancel</button>
+          <button type="submit" class="primary-action">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-overlay hidden" id="keysModal">
+    <div class="modal-panel glass">
+      <div class="modal-head">
+        <h3>Controls &amp; Shortcuts</h3>
+        <button class="close-x" id="btnCloseKeys">✕</button>
+      </div>
+      <ul class="shortcuts-list">
+        <li><kbd>SPACE</kbd> or <kbd>CLICK</kbd> <span>Start / React to green signal</span></li>
+        <li><kbd>1</kbd> – <kbd>5</kbd> <span>Jump to unlocked campaign level</span></li>
+        <li><kbd>M</kbd> <span>Cycle game mode (Campaign / 5-Try / Blitz)</span></li>
+        <li><kbd>S</kbd> <span>Mute / Unmute synthesized sound effects</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="app-v2.js"></script>
+</body>
+</html>

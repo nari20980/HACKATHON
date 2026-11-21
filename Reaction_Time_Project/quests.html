@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quests, Coins &amp; XP — Arcade Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="quests.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">📜</div>
+      <div>
+        <h1>Arcade <span>Quests</span></h1>
+        <p>Earn coins &amp; XP, level up, or spend coins to refresh quests</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link active" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <span class="coin-pill" id="topCoinBalance">🪙 75 COINS</span>
+      <button type="button" class="reset-btn" id="btnResetQuests">Reset Progress</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="xp-banner glass" aria-labelledby="xpBannerTitle">
+      <div class="xp-summary">
+        <span class="tag tag-cyan" id="levelBadge">LEVEL 1 • ROOKIE</span>
+        <h2 id="xpBannerTitle">0 / 100 XP</h2>
+        <p id="xpHint">Complete or claim quests below to gain XP and coins.</p>
+      </div>
+      <div class="xp-meter-box">
+        <div class="xp-meter-top">
+          <span>NEXT LEVEL</span>
+          <strong id="xpPercent">0%</strong>
+        </div>
+        <div class="xp-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xpProgressBar">
+          <div class="xp-fill" id="xpFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="level-toast hidden" id="levelUpToast" role="status" aria-live="polite">
+      <span aria-hidden="true">🎉</span>
+      <strong id="levelUpText">Level Up! You reached Level 2!</strong>
+    </div>
+
+    <section class="panel glass" aria-labelledby="questListHeading">
+      <div class="panel-head">
+        <div>
+          <span class="tag tag-violet">ACTIVE QUEST BOARD</span>
+          <h2 id="questListHeading">Daily &amp; Arcade Quests</h2>
+        </div>
+        <div class="quest-head-actions">
+          <span class="pill-count" id="questCounter">0 / 4 CLAIMED</span>
+          <button type="button" class="refresh-btn" id="btnRefreshQuests">🔄 New Quests (25 🪙)</button>
+        </div>
+      </div>
+
+      <div class="quest-list" id="questList"></div>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="quests.js"></script>
+</body>
+</html>

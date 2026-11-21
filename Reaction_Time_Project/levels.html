@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level Up System — Arcade Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="levels.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">⚡</div>
+      <div>
+        <h1>Level <span>System</span></h1>
+        <p>Track your current level, XP bar, and milestone unlocks</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link active" href="levels.html">⚡ Levels</a>
+      <button type="button" class="boost-btn" id="btnTestXp">+25 Test XP</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="status-card glass" aria-labelledby="currentLevelHeading">
+      <div class="status-top">
+        <div>
+          <span class="tag tag-cyan" id="rankTag">RANK: ROOKIE</span>
+          <h2 id="currentLevelHeading">Level 1</h2>
+          <p id="totalXpReadout">0 Total XP • 100 XP per level</p>
+        </div>
+        <div class="level-pill-box">
+          <span>XP TO NEXT</span>
+          <strong id="xpRemaining">100 XP</strong>
+        </div>
+      </div>
+
+      <div class="bar-wrap">
+        <div class="bar-labels">
+          <span id="barCurrentLabel">0 XP</span>
+          <span id="barTargetLabel">100 XP</span>
+        </div>
+        <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="levelBar">
+          <div class="bar-fill" id="levelBarFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel glass" aria-labelledby="tiersHeading">
+      <div class="panel-head">
+        <span class="tag tag-violet">LEVEL MILESTONES</span>
+        <h2 id="tiersHeading">Progression Roadmap</h2>
+      </div>
+      <div class="tiers-grid" id="tiersGrid"></div>
+    </section>
+  </main>
+
+  <script src="levels.js"></script>
+</body>
+</html>

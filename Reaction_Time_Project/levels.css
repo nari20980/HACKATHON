@@ -1,0 +1,337 @@
+:root {
+  --bg: #040712;
+  --surface: rgba(15, 23, 46, 0.78);
+  --surface-deep: rgba(4, 8, 20, 0.78);
+  --border: rgba(148, 163, 184, 0.16);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --cyan: #22d3ee;
+  --violet: #a855f7;
+  --emerald: #10b981;
+  --radius-xl: 1.35rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.72rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(ellipse 75% 45% at 50% -5%, rgba(34, 211, 238, 0.14), transparent 65%),
+    radial-gradient(ellipse 65% 45% at 85% 90%, rgba(168, 85, 247, 0.12), transparent 65%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(130px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.orb-cyan {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: 8%;
+  background: rgba(34, 211, 238, 0.24);
+}
+
+.orb-violet {
+  width: 440px;
+  height: 440px;
+  bottom: -140px;
+  right: 8%;
+  background: rgba(168, 85, 247, 0.22);
+}
+
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(4, 7, 18, 0.84);
+  position: sticky;
+  top: 0;
+  z-index: 15;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  color: #031018;
+  font-weight: 900;
+}
+
+.brand h1 {
+  font-size: 1.18rem;
+  font-weight: 850;
+}
+
+.brand h1 span {
+  color: var(--cyan);
+}
+
+.brand p {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.nav-link,
+.boost-btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.nav-link {
+  background: var(--surface-deep);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.52rem 0.88rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  border-color: rgba(34, 211, 238, 0.45);
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, var(--cyan), #38bdf8);
+  color: #031018;
+  border-color: transparent;
+}
+
+.boost-btn {
+  background: linear-gradient(135deg, var(--violet), #7c3aed);
+  color: #ffffff;
+  border: none;
+  padding: 0.54rem 0.9rem;
+}
+
+.boost-btn:hover {
+  transform: translateY(-1px);
+}
+
+.wrap {
+  max-width: 960px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.status-card,
+.panel {
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+}
+
+.status-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.24rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.4rem;
+}
+
+.tag-cyan {
+  background: rgba(34, 211, 238, 0.14);
+  color: #67e8f9;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.tag-violet {
+  background: rgba(168, 85, 247, 0.16);
+  color: #e9d5ff;
+  border: 1px solid rgba(168, 85, 247, 0.38);
+}
+
+.status-top h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.status-top p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 0.2rem;
+}
+
+.level-pill-box {
+  background: var(--surface-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.95rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: right;
+}
+
+.level-pill-box span {
+  display: block;
+  font-size: 0.64rem;
+  color: var(--muted);
+}
+
+.level-pill-box strong {
+  font-size: 1.05rem;
+  color: var(--cyan);
+}
+
+.bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-bottom: 0.45rem;
+}
+
+.bar-track {
+  height: 14px;
+  border-radius: 999px;
+  background: var(--surface-deep);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan), var(--emerald));
+  transition: width 0.35s ease;
+}
+
+.panel-head {
+  margin-bottom: 1.1rem;
+}
+
+.panel-head h2 {
+  font-size: 1.2rem;
+  font-weight: 850;
+}
+
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+}
+
+.tier-card {
+  background: var(--surface-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tier-card.unlocked {
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.tier-card.current {
+  border-color: var(--cyan);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.16);
+}
+
+.tier-lvl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--cyan);
+}
+
+.tier-card h3 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.tier-card p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.tier-status {
+  margin-top: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #6ee7b7;
+}
+
+.tier-card:not(.unlocked) .tier-status {
+  color: var(--muted);
+}
