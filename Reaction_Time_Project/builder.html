@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Builder — 5x5 Block Grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="builder.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🧱</div>
+      <div>
+        <h1>Arcade <span>Block Builder</span></h1>
+        <p>Select a block from the hotbar and tap or drag on the 5×5 grid</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+      <button type="button" class="clear-btn" id="btnClearGrid">🗑️ Clear Grid</button>
+    </nav>
+  </header>
+
+  <main class="builder-wrap">
+    <section class="builder-panel glass" aria-labelledby="builderHeading">
+      <div class="panel-head">
+        <div>
+          <span class="tag tag-emerald">SANDBOX 5×5</span>
+          <h2 id="builderHeading">5×5 Building Canvas</h2>
+        </div>
+        <div class="status-pills">
+          <span class="pill" id="holdingLabel">Holding: Oak Log</span>
+          <span class="pill pill-cyan" id="blockCountLabel">0 / 25 Placed</span>
+        </div>
+      </div>
+
+      <div class="grid-stage">
+        <div class="block-grid" id="blockGrid" role="grid" aria-label="5 by 5 block grid"></div>
+      </div>
+
+      <div class="hotbar-dock" aria-label="Minecraft Hotbar">
+        <div class="hotbar" id="hotbar">
+          <button type="button" class="hotbar-slot active" data-block="oak_log" aria-label="Slot 1: Oak Log">
+            <span class="slot-key">1</span>
+            <span class="block-preview tex-oak-log" aria-hidden="true"></span>
+            <span class="slot-name">Oak Log</span>
+          </button>
+
+          <button type="button" class="hotbar-slot" data-block="oak_planks" aria-label="Slot 2: Oak Planks">
+            <span class="slot-key">2</span>
+            <span class="block-preview tex-oak-planks" aria-hidden="true"></span>
+            <span class="slot-name">Oak Planks</span>
+          </button>
+
+          <button type="button" class="hotbar-slot" data-block="cobblestone" aria-label="Slot 3: Cobblestone">
+            <span class="slot-key">3</span>
+            <span class="block-preview tex-cobblestone" aria-hidden="true"></span>
+            <span class="slot-name">Cobblestone</span>
+          </button>
+
+          <button type="button" class="hotbar-slot" data-block="air" aria-label="Slot 4: Eraser">
+            <span class="slot-key">4</span>
+            <span class="block-preview tex-eraser" aria-hidden="true">✕</span>
+            <span class="slot-name">Erase</span>
+          </button>
+        </div>
+        <p class="controls-hint">Tap/click or drag across squares to place • Right-click or press 1–4 to switch tools</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="builder.js"></script>
+</body>
+</html>

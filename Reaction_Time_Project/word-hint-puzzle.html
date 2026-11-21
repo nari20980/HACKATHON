@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Word Hint Puzzle — Drag &amp; Drop Words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="word-hint-puzzle.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🧩</div>
+      <div>
+        <h1>Arcade <span>Word Hint Puzzle</span></h1>
+        <p>Read the hint inside each hollow block and drag the matching word in</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+      <a class="nav-link" href="builder.html">🧱 Builder</a>
+      <a class="nav-link" href="aim.html">🎯 Aim</a>
+    </nav>
+  </header>
+
+  <main class="puzzle-wrap">
+    <section class="puzzle-panel glass" aria-labelledby="puzzleHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-emerald">HINT WORD MATCH</span>
+          <h2 id="puzzleHeading">Drag Each Word to Its Hint Block</h2>
+        </div>
+
+        <div class="score-pill">
+          <span>SOLVED</span>
+          <strong id="solvedCount">0 / 4</strong>
+        </div>
+      </div>
+
+      <!-- Hollow Hint Blocks -->
+      <div class="slots-grid" id="slotsGrid" aria-label="Hollow hint blocks"></div>
+
+      <!-- Draggable Word Blocks -->
+      <div class="bank-section">
+        <div class="bank-header">
+          <span class="bank-label">WORD BLOCKS (DRAG OR TAP TO PLACE)</span>
+          <div class="bank-actions">
+            <button type="button" class="mini-btn" id="btnNextSet">↻ Next Hints</button>
+            <button type="button" class="mini-btn" id="btnResetPuzzle">Reset</button>
+          </div>
+        </div>
+        <div class="word-bank" id="wordBank" aria-label="Draggable answer word blocks"></div>
+      </div>
+
+      <p class="status-line" id="statusLine" role="status" aria-live="polite">
+        Drag a word block onto the hollow block whose hint matches that word.
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="word-hint-puzzle.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Aim Test — Precision &amp; Speed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="aim.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🎯</div>
+      <div>
+        <h1>Arcade <span>Aim Test</span></h1>
+        <p>Hit targets fast before the timer runs out and build your accuracy streak</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+      <a class="nav-link" href="builder.html">🧱 Builder</a>
+    </nav>
+  </header>
+
+  <main class="aim-wrap">
+    <section class="aim-panel glass" aria-labelledby="aimHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">PRECISION TRAINER</span>
+          <h2 id="aimHeading">Target Flick Arena</h2>
+        </div>
+
+        <div class="mode-controls" role="group" aria-label="Aim Test Duration and Target Size">
+          <div class="control-group">
+            <button type="button" class="chip-btn active" data-duration="15">15s</button>
+            <button type="button" class="chip-btn" data-duration="30">30s</button>
+            <button type="button" class="chip-btn" data-duration="60">60s</button>
+          </div>
+          <div class="control-group">
+            <button type="button" class="chip-btn active" data-size="normal">Normal</button>
+            <button type="button" class="chip-btn" data-size="small">Small</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-bar" aria-label="Live Aim Stats">
+        <div class="stat-box">
+          <span>TIME LEFT</span>
+          <strong id="statTime">15.0s</strong>
+        </div>
+        <div class="stat-box">
+          <span>HITS</span>
+          <strong id="statHits">0</strong>
+        </div>
+        <div class="stat-box">
+          <span>ACCURACY</span>
+          <strong id="statAccuracy">100%</strong>
+        </div>
+        <div class="stat-box">
+          <span>AVG SPEED</span>
+          <strong id="statAvgMs">-- ms</strong>
+        </div>
+        <div class="stat-box">
+          <span>BEST SCORE</span>
+          <strong id="statBest">0</strong>
+        </div>
+      </div>
+
+      <div class="arena-container" id="arenaContainer" role="application" aria-label="Aim target arena">
+        <div class="arena-overlay" id="arenaOverlay">
+          <h3 id="overlayTitle">Ready to Test Your Aim?</h3>
+          <p id="overlayDesc">Click targets as quickly as possible. Missing empty space lowers accuracy.</p>
+          <button type="button" class="start-btn" id="btnStartAim">Start Aim Test</button>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <span class="status-note" id="aimStatusText">Select duration &amp; target size, then press Start.</span>
+        <span class="reward-note" id="aimRewardNote">Earn XP &amp; Coins on every completed run</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="aim.js"></script>
+</body>
+</html>

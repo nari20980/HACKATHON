@@ -40,6 +40,88 @@
       }
     }
 
+    @keyframes scanline {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(240%);
+      }
+    }
+
+    @keyframes reflexSignal {
+      0%, 62% {
+        transform: scale(0.85);
+        background: rgba(245, 158, 11, 0.28);
+        border-color: #fbbf24;
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+      }
+      65%, 92% {
+        transform: scale(1.15);
+        background: rgba(16, 185, 129, 0.38);
+        border-color: #34d399;
+        box-shadow: 0 0 26px rgba(16, 185, 129, 0.65);
+      }
+      95%, 100% {
+        transform: scale(0.85);
+        background: rgba(245, 158, 11, 0.28);
+        border-color: #fbbf24;
+      }
+    }
+
+    @keyframes clickRipple {
+      0% {
+        transform: translate(-50%, -50%) scale(0.35);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes hintPulse {
+      0%, 100% {
+        transform: scale(0.97);
+        border-color: rgba(16, 185, 129, 0.55);
+      }
+      50% {
+        transform: scale(1.04);
+        border-color: #22d3ee;
+      }
+    }
+
+    @keyframes builderPulse {
+      0%, 100% {
+        transform: scale(0.96);
+        box-shadow: 0 0 0 rgba(245, 158, 11, 0);
+      }
+      50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+      }
+    }
+
+    @keyframes aimLockPulse {
+      0%, 100% {
+        transform: scale(0.88);
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 8px rgba(34, 211, 238, 0);
+      }
+    }
+
+    @keyframes paletteCycle {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-4px) scale(1.08);
+      }
+    }
+
     .orb-cyan {
       animation: orbFloat 9s ease-in-out infinite;
     }
@@ -84,14 +166,33 @@
 
     .hub-wrap {
       width: 100%;
-      max-width: 1080px;
-      margin: clamp(1.5rem, 4vw, 2.5rem) auto clamp(2rem, 5vw, 3.25rem);
+      max-width: 1120px;
+      margin: clamp(1.35rem, 3.5vw, 2.35rem) auto clamp(2rem, 5vw, 3.25rem);
       padding: 0 clamp(0.9rem, 3vw, 1.5rem);
     }
 
-    .hub-hero {
-      text-align: center;
-      margin-bottom: clamp(1.15rem, 3vw, 1.65rem);
+    .showcase-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      padding: clamp(1.2rem, 3vw, 1.8rem);
+      margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.25rem;
+      align-items: center;
+      border-color: rgba(34, 211, 238, 0.32);
+    }
+
+    .showcase-stage::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.05), transparent);
+      animation: scanline 6.5s linear infinite;
+      pointer-events: none;
     }
 
     .live-pill {
@@ -107,7 +208,7 @@
       background: rgba(34, 211, 238, 0.12);
       color: #67e8f9;
       border: 1px solid rgba(34, 211, 238, 0.35);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
     .live-dot {
@@ -119,24 +220,97 @@
       flex-shrink: 0;
     }
 
-    .hub-hero h2 {
-      font-size: clamp(1.65rem, 4.5vw, 2.65rem);
+    .showcase-copy h2 {
+      font-size: clamp(1.65rem, 4.2vw, 2.55rem);
       font-weight: 900;
       letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
-      line-height: 1.15;
+      margin-bottom: 0.45rem;
+      line-height: 1.12;
       background: linear-gradient(90deg, #ffffff 0%, #67e8f9 50%, #e9d5ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .hub-hero p {
+    .showcase-copy p {
       color: var(--muted);
-      font-size: clamp(0.88rem, 2.2vw, 1rem);
+      font-size: clamp(0.88rem, 2vw, 0.98rem);
       line-height: 1.55;
       max-width: 560px;
-      margin: 0 auto;
+    }
+
+    .stage-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.95rem;
+    }
+
+    .stage-tab {
+      appearance: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.42rem 0.78rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-deep);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .stage-tab.active,
+    .stage-tab:hover {
+      color: #031018;
+      background: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .stage-visual {
+      position: relative;
+      min-height: 200px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: #060b1b;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.95rem;
+    }
+
+    .stage-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stage-caption {
+      position: relative;
+      z-index: 2;
+      background: rgba(4, 8, 20, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .stage-caption strong {
+      font-size: 0.86rem;
+      display: block;
+    }
+
+    .stage-caption span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #67e8f9;
     }
 
     .hub-quest-bar {
@@ -240,13 +414,181 @@
 
     .picker-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: clamp(1rem, 2.2vw, 1.35rem);
     }
 
+    .card-reel {
+      position: relative;
+      height: 108px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(4, 8, 20, 0.85);
+      margin-bottom: 0.95rem;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .reel-badge {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.55rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 0.16rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 46, 0.9);
+      color: #67e8f9;
+      border: 1px solid rgba(34, 211, 238, 0.35);
+    }
+
+    .reflex-beacon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #fbbf24;
+      animation: reflexSignal 2.6s ease-in-out infinite;
+    }
+
+    .click-wave-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .click-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid #c084fc;
+      animation: clickRipple 1.15s ease-out infinite;
+    }
+
+    .click-ring:nth-child(2) {
+      animation-delay: 0.38s;
+      border-color: #22d3ee;
+    }
+
+    .click-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #f3e8ff;
+      background: rgba(168, 85, 247, 0.28);
+      border: 1px solid rgba(192, 132, 252, 0.5);
+      padding: 0.28rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .hint-preview {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .hint-hollow-chip {
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      border: 1.5px dashed rgba(148, 163, 184, 0.5);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hint-word-chip {
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1.5px solid #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 800;
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    .builder-mini-strip {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .mini-swatch {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      animation: builderPulse 2.2s ease-in-out infinite;
+    }
+
+    .mini-swatch.log {
+      background: linear-gradient(90deg, #4a3016 0 45%, #6b4724 45% 80%, #3f2812 80% 100%);
+    }
+
+    .mini-swatch.planks {
+      background: linear-gradient(180deg, #c69756 0%, #a5773c 100%);
+      animation-delay: 0.25s;
+    }
+
+    .mini-swatch.cobble {
+      background: linear-gradient(135deg, #8e8e8e, #5f5f5f);
+      animation-delay: 0.5s;
+    }
+
+    .aim-bull-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: radial-gradient(circle at 35% 35%, #67e8f9 0%, #22d3ee 55%, #0284c7 100%);
+      animation: aimLockPulse 1.5s ease-in-out infinite;
+    }
+
+    .color-orb-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .color-orb-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.45);
+      animation: paletteCycle 1.8s ease-in-out infinite;
+    }
+
+    .color-orb-dot.c1 {
+      background: #22d3ee;
+    }
+
+    .color-orb-dot.c2 {
+      background: #a855f7;
+      animation-delay: 0.2s;
+    }
+
+    .color-orb-dot.c3 {
+      background: #10b981;
+      animation-delay: 0.4s;
+    }
+
+    .color-orb-dot.c4 {
+      background: #f59e0b;
+      animation-delay: 0.6s;
+    }
+
     @media (max-width: 900px) {
-      .picker-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .showcase-stage {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -336,6 +678,21 @@
       box-shadow: 0 28px 65px rgba(0, 0, 0, 0.68), 0 0 28px rgba(16, 185, 129, 0.16);
     }
 
+    .picker-card.builder-card:hover {
+      border-color: rgba(245, 158, 11, 0.65);
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.68), 0 0 28px rgba(245, 158, 11, 0.16);
+    }
+
+    .picker-card.aim-card:hover {
+      border-color: rgba(56, 189, 248, 0.7);
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.68), 0 0 28px rgba(56, 189, 248, 0.18);
+    }
+
+    .picker-card.color-card:hover {
+      border-color: rgba(232, 121, 249, 0.7);
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.68), 0 0 28px rgba(232, 121, 249, 0.18);
+    }
+
     .picker-icon {
       width: 52px;
       height: 52px;
@@ -371,6 +728,18 @@
       border: 1px solid rgba(16, 185, 129, 0.38);
     }
 
+    .tag-amber {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.38);
+    }
+
+    .tag-pink {
+      background: rgba(232, 121, 249, 0.16);
+      color: #f5d0fe;
+      border: 1px solid rgba(232, 121, 249, 0.38);
+    }
+
     .launch-btn {
       display: inline-flex;
       align-items: center;
@@ -399,6 +768,21 @@
     .puzzle-card .launch-btn {
       background: linear-gradient(135deg, var(--emerald), #059669);
       color: #031610;
+    }
+
+    .builder-card .launch-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #090d16;
+    }
+
+    .aim-card .launch-btn {
+      background: linear-gradient(135deg, #06b6d4, #2563eb);
+      color: #ffffff;
+    }
+
+    .color-card .launch-btn {
+      background: linear-gradient(135deg, #e879f9, #9333ea);
+      color: #ffffff;
     }
 
     .contact-section {
@@ -513,7 +897,14 @@
       .orb-cyan,
       .orb-violet,
       .brand-logo,
-      .picker-card:hover .picker-icon {
+      .picker-card:hover .picker-icon,
+      .showcase-stage::after,
+      .reflex-beacon,
+      .click-ring,
+      .hint-word-chip,
+      .mini-swatch,
+      .aim-bull-dot,
+      .color-orb-dot {
         animation: none;
       }
       .picker-card::before {
@@ -532,14 +923,17 @@
       <div class="brand-logo" aria-hidden="true">🎮</div>
       <div>
         <h1>Arcade <span>Main Page</span></h1>
-        <p>Select a reflex, clicking, or puzzle challenge to launch</p>
+        <p>Select a reflex, clicking, aim, draw-and-match, word-hint puzzle, or block-building mode</p>
       </div>
     </div>
 
     <nav class="game-switcher" aria-label="Quick Launch">
       <a class="game-btn active" href="index2.html?game=reaction">⚡ Reaction Test</a>
       <a class="game-btn" href="index2.html?game=clicker">🖱️ Clicker Test</a>
-      <a class="game-btn" href="index3.html">🧩 Puzzle Board</a>
+      <a class="game-btn" href="aim.html">🎯 Aim Test</a>
+      <a class="game-btn" href="draw-match.html">🖌️ Draw &amp; Match</a>
+      <a class="game-btn" href="word-hint-puzzle.html">🧩 Word Hint Puzzle</a>
+      <a class="game-btn" href="builder.html">🧱 5×5 Builder</a>
       <a class="ghost-btn" href="quests.html">📜 Quests</a>
       <a class="ghost-btn" href="levels.html">⚡ Levels</a>
       <a class="ghost-btn" href="shop.html">🛒 Shop</a>
@@ -548,11 +942,32 @@
   </header>
 
   <main class="hub-wrap">
-    <div class="hub-hero">
-      <div class="live-pill"><span class="live-dot" aria-hidden="true"></span> ARCADE ENGINE ONLINE</div>
-      <h2>Choose Your Game</h2>
-      <p>Pick between testing your reflex speed, counting timed clicks, or snapping puzzle pieces into place.</p>
-    </div>
+    <section class="showcase-stage glass" aria-label="Featured Arcade Visual Showcase">
+      <div class="showcase-copy">
+        <div class="live-pill"><span class="live-dot" aria-hidden="true"></span> ARCADE ENGINE ONLINE</div>
+        <h2>Choose Your Game</h2>
+        <p>Pick between reflex speed, timed clicks, aim flicks, freehand target drawing, word-hint drag puzzles, or 5×5 block building.</p>
+        <div class="stage-tabs" role="tablist" aria-label="Preview Modes">
+          <button type="button" class="stage-tab active" data-reel="reaction">⚡ Reflex Reel</button>
+          <button type="button" class="stage-tab" data-reel="clicker">🖱️ Clicker Reel</button>
+          <button type="button" class="stage-tab" data-reel="aim">🎯 Aim Reel</button>
+          <button type="button" class="stage-tab" data-reel="color">🖌️ Draw &amp; Match</button>
+          <button type="button" class="stage-tab" data-reel="puzzle">🧩 Word Hints</button>
+          <button type="button" class="stage-tab" data-reel="builder">🧱 5×5 Builder</button>
+        </div>
+      </div>
+
+      <div class="stage-visual" id="stageVisual">
+        <canvas class="stage-canvas" id="stageCanvas" aria-hidden="true"></canvas>
+        <div class="stage-caption">
+          <div>
+            <strong id="stageTitle">False-Alarm Reflex Arena</strong>
+            <span id="stageMeta">LIVE PREVIEW • WAIT FOR GREEN</span>
+          </div>
+          <a class="ghost-btn" id="stageLaunchLink" href="index2.html?game=reaction">Launch →</a>
+        </div>
+      </div>
+    </section>
 
     <section class="hub-quest-bar glass" aria-label="Quest, Coin, Shop, and XP Summary">
       <div class="hub-quest-status">
@@ -573,6 +988,10 @@
     <div class="picker-grid">
       <a class="picker-card glass" id="pickReaction" href="index2.html?game=reaction">
         <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">FALSE ALARM READY</span>
+            <div class="reflex-beacon"></div>
+          </div>
           <div class="picker-icon" aria-hidden="true">⚡</div>
           <span class="tag tag-cyan">REFLEX SPEED</span>
           <h3>Reaction Time Test</h3>
@@ -583,6 +1002,14 @@
 
       <a class="picker-card glass clicker-card" id="pickClicker" href="index2.html?game=clicker">
         <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">1s–60s TIMERS</span>
+            <div class="click-wave-wrap">
+              <div class="click-ring"></div>
+              <div class="click-ring"></div>
+              <div class="click-core">CPS BURST</div>
+            </div>
+          </div>
           <div class="picker-icon" aria-hidden="true">🖱️</div>
           <span class="tag tag-violet">TIMED CLICKER</span>
           <h3>Clicker Speed Test</h3>
@@ -591,14 +1018,72 @@
         <span class="launch-btn">Play Clicker Test →</span>
       </a>
 
-      <a class="picker-card glass puzzle-card" id="pickPuzzle" href="index3.html">
+      <a class="picker-card glass aim-card" id="pickAim" href="aim.html">
         <div>
-          <div class="picker-icon" aria-hidden="true">🧩</div>
-          <span class="tag tag-emerald">JQUERY UI PUZZLE</span>
-          <h3>Drag &amp; Drop Puzzle Board</h3>
-          <p>Drag puzzle pieces and snap them into their matching slots on the target board to trigger the win message.</p>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">15s–60s FLICKS</span>
+            <div class="aim-bull-dot"></div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🎯</div>
+          <span class="tag tag-cyan">PRECISION &amp; SPEED</span>
+          <h3>Target Flick Aim Test</h3>
+          <p>Hit targets quickly across the arena with normal or small targets while tracking accuracy and average speed.</p>
         </div>
-        <span class="launch-btn">Play Puzzle Board →</span>
+        <span class="launch-btn">Play Aim Test →</span>
+      </a>
+
+      <a class="picker-card glass color-card" id="pickDrawMatch" href="draw-match.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">LIVE % MATCH</span>
+            <div class="color-orb-row">
+              <div class="color-orb-dot c1"></div>
+              <div class="color-orb-dot c2"></div>
+              <div class="color-orb-dot c3"></div>
+              <div class="color-orb-dot c4"></div>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🖌️</div>
+          <span class="tag tag-pink">DRAW &amp; COMPATIBILITY</span>
+          <h3>Draw &amp; Match Studio</h3>
+          <p>Draw penguins, lions, rockets, or suns with colors to match the top target and score compatibility %.</p>
+        </div>
+        <span class="launch-btn">Play Draw &amp; Match →</span>
+      </a>
+
+      <a class="picker-card glass puzzle-card" id="pickWordHint" href="word-hint-puzzle.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">HINT → WORD</span>
+            <div class="hint-preview">
+              <div class="hint-hollow-chip">Hint Box</div>
+              <div class="hint-word-chip">ANSWER</div>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🧩</div>
+          <span class="tag tag-emerald">HINT WORD PUZZLE</span>
+          <h3>Word Hint Drag Puzzle</h3>
+          <p>Read the hint inside each hollow block and drag or tap the matching word block into place.</p>
+        </div>
+        <span class="launch-btn">Play Word Hint Puzzle →</span>
+      </a>
+
+      <a class="picker-card glass builder-card" id="pickBuilder" href="builder.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">HOTBAR 1–4</span>
+            <div class="builder-mini-strip">
+              <div class="mini-swatch log"></div>
+              <div class="mini-swatch planks"></div>
+              <div class="mini-swatch cobble"></div>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🧱</div>
+          <span class="tag tag-amber">5×5 BLOCK GRID</span>
+          <h3>Minecraft 5×5 Builder</h3>
+          <p>Hold Oak Log, Oak Planks, or Cobblestone in your hotbar and tap or drag on any square in the 5×5 grid to build.</p>
+        </div>
+        <span class="launch-btn">Open 5×5 Builder →</span>
       </a>
     </div>
 
@@ -637,6 +1122,132 @@
   <script src="arcade-quests.js"></script>
   <script>
     'use strict';
+
+    const REEL_DATA = {
+      reaction: {
+        title: 'False-Alarm Reflex Arena',
+        meta: 'LIVE PREVIEW • WAIT FOR GREEN',
+        href: 'index2.html?game=reaction',
+        accent: '#22d3ee',
+        secondary: '#10b981'
+      },
+      clicker: {
+        title: 'High-Speed Clicker Overdrive',
+        meta: 'LIVE PREVIEW • 1S–60S SPRINTS',
+        href: 'index2.html?game=clicker',
+        accent: '#a855f7',
+        secondary: '#22d3ee'
+      },
+      aim: {
+        title: 'Target Flick Aim Arena',
+        meta: 'LIVE PREVIEW • ACCURACY & MS SPEED',
+        href: 'aim.html',
+        accent: '#38bdf8',
+        secondary: '#22d3ee'
+      },
+      color: {
+        title: 'Draw & Match Compatibility Studio',
+        meta: 'LIVE PREVIEW • DRAW & SCORE %',
+        href: 'draw-match.html',
+        accent: '#e879f9',
+        secondary: '#22d3ee'
+      },
+      puzzle: {
+        title: 'Word Hint Drag Puzzle',
+        meta: 'LIVE PREVIEW • READ HINT & DROP WORD',
+        href: 'word-hint-puzzle.html',
+        accent: '#10b981',
+        secondary: '#22d3ee'
+      },
+      builder: {
+        title: 'Minecraft 5×5 Block Grid',
+        meta: 'LIVE PREVIEW • LOG • PLANKS • COBBLE',
+        href: 'builder.html',
+        accent: '#f59e0b',
+        secondary: '#10b981'
+      }
+    };
+
+    let activeReelKey = 'reaction';
+    const canvas = document.getElementById('stageCanvas');
+    const ctx = canvas?.getContext('2d');
+    const particles = Array.from({ length: 24 }, (_, i) => ({
+      phase: (i / 24) * Math.PI * 2,
+      speed: 0.015 + (i % 5) * 0.004,
+      radius: 2 + (i % 4) * 1.4
+    }));
+
+    function resizeStageCanvas() {
+      if (!canvas || !canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawStageAnimation() {
+      if (!canvas || !ctx || !canvas.parentElement) return;
+      const w = canvas.parentElement.clientWidth || 360;
+      const h = canvas.parentElement.clientHeight || 200;
+      const theme = REEL_DATA[activeReelKey] || REEL_DATA.reaction;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, 'rgba(34, 211, 238, 0.14)');
+      grad.addColorStop(0.55, 'rgba(168, 85, 247, 0.14)');
+      grad.addColorStop(1, 'rgba(16, 185, 129, 0.14)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = theme.accent;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 8) {
+        const norm = x / Math.max(1, w);
+        const wave = Math.sin(norm * Math.PI * 4 + performance.now() * 0.004) * (h * 0.16);
+        const y = h * 0.45 + wave;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      for (const p of particles) {
+        p.phase += p.speed;
+        const px = ((Math.sin(p.phase) * 0.42 + 0.5) * w);
+        const py = ((Math.cos(p.phase * 1.3) * 0.35 + 0.45) * h);
+        ctx.fillStyle = theme.secondary;
+        ctx.beginPath();
+        ctx.arc(px, py, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(drawStageAnimation);
+    }
+
+    resizeStageCanvas();
+    window.addEventListener('resize', resizeStageCanvas);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      requestAnimationFrame(drawStageAnimation);
+    }
+
+    document.querySelectorAll('.stage-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const key = tab.dataset.reel;
+        const info = REEL_DATA[key];
+        if (!info) return;
+
+        activeReelKey = key;
+        document.querySelectorAll('.stage-tab').forEach((t) => t.classList.toggle('active', t === tab));
+        const titleEl = document.getElementById('stageTitle');
+        const metaEl = document.getElementById('stageMeta');
+        const linkEl = document.getElementById('stageLaunchLink');
+        if (titleEl) titleEl.textContent = info.title;
+        if (metaEl) metaEl.textContent = info.meta;
+        if (linkEl) linkEl.href = info.href;
+      });
+    });
 
     const params = new URLSearchParams(window.location.search);
     const preferred = params.get('game');

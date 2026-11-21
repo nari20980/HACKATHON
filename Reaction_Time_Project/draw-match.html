@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Draw &amp; Match — Penguins, Lions &amp; More</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="draw-match.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🖌️</div>
+      <div>
+        <h1>Arcade <span>Draw &amp; Match</span></h1>
+        <p>Draw lions, penguins, rockets, and more to match the top target %</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="levels.html">⚡ Levels</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+      <a class="nav-link" href="builder.html">🧱 Builder</a>
+      <a class="nav-link" href="aim.html">🎯 Aim</a>
+    </nav>
+  </header>
+
+  <main class="draw-wrap">
+    <section class="draw-panel glass" aria-labelledby="drawMatchHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">DRAW &amp; COMPATIBILITY</span>
+          <h2 id="drawMatchHeading">Draw What You See on Top</h2>
+        </div>
+
+        <div class="compat-box">
+          <span class="compat-label">COMPATIBILITY</span>
+          <strong class="compat-value" id="compatPercent">0%</strong>
+          <div class="compat-bar" aria-hidden="true">
+            <div class="compat-bar-fill" id="compatBarFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject Selector -->
+      <div class="subject-bar" role="tablist" aria-label="Choose target drawing">
+        <button type="button" class="subject-btn active" data-subject="penguin">🐧 Penguin</button>
+        <button type="button" class="subject-btn" data-subject="lion">🦁 Lion</button>
+        <button type="button" class="subject-btn" data-subject="rocket">🚀 Rocket</button>
+        <button type="button" class="subject-btn" data-subject="sunset">🌅 Sun &amp; Waves</button>
+      </div>
+
+      <!-- Top Target Reference -->
+      <div class="reference-box">
+        <div class="box-header">
+          <span class="box-title" id="targetLabel">TOP TARGET: PENGUIN</span>
+          <span class="best-score" id="bestScoreLabel">BEST: 0%</span>
+        </div>
+        <canvas class="ref-canvas" id="refCanvas" width="320" height="230" aria-label="Target drawing to match"></canvas>
+      </div>
+
+      <!-- Player Drawing Area -->
+      <div class="canvas-box">
+        <div class="box-header">
+          <span class="box-title box-title-violet">YOUR DRAWING</span>
+          <div class="helper-toggles">
+            <button type="button" class="mini-btn active" id="btnToggleGuide">Guide: ON</button>
+            <button type="button" class="mini-btn" id="btnEraser">Eraser: OFF</button>
+          </div>
+        </div>
+        <canvas class="draw-canvas" id="drawCanvas" width="320" height="230" aria-label="Draw your version here"></canvas>
+      </div>
+
+      <!-- Colorful Palette, Brush Size & Actions -->
+      <div class="toolbar">
+        <div class="swatches" id="swatches" role="group" aria-label="Color palette"></div>
+
+        <div class="brush-sizes" role="group" aria-label="Brush size">
+          <button type="button" class="mini-btn" data-size="6">Fine</button>
+          <button type="button" class="mini-btn active" data-size="14">Medium</button>
+          <button type="button" class="mini-btn" data-size="24">Thick</button>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-secondary" id="btnClearDraw">Clear</button>
+          <button type="button" class="btn-primary" id="btnCheckMatch">Check Match %</button>
+        </div>
+      </div>
+
+      <p class="status-msg" id="statusMsg" role="status" aria-live="polite">
+        Pick a color and draw the top subject. Hit Check Match % to see your compatibility score!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="draw-match.js"></script>
+</body>
+</html>
