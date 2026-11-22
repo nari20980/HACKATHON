@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arcade First-Person Voxel World</title>
+  <title>Minecraft Voxel Sandbox</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -11,115 +11,98 @@
 </head>
 <body>
   <canvas id="worldCanvas"></canvas>
+  <div class="crosshair" aria-hidden="true">+</div>
 
   <header class="hud-top">
-    <div class="hud-card">
-      <div class="brand-title">First-Person <span>Voxel</span></div>
-      <a class="hud-btn" href="main.html">Home</a>
-      <button type="button" class="hud-btn primary" id="btnEnterLock">Look Around</button>
-      <button type="button" class="hud-btn" id="btnSound">Sound: ON</button>
+    <div class="hud-row">
+      <div class="badge" id="modeBadge">MODE: SURVIVAL (player)</div>
+      <div class="badge biome" id="biomeBadge">BIOME: PLAINS</div>
+      <div class="badge time" id="timeBadge">DAY (05:16)</div>
+      <div class="badge hp" id="hpBadge">HP: 20/20</div>
+      <div class="badge placed" id="placedCounter">Placed: 0</div>
     </div>
-
-    <div class="hud-card">
-      <div class="stat-pill" id="biomeBadge">BIOME: PLAINS</div>
-      <div class="stat-pill" id="timeBadge">DAY (06:00)</div>
-      <div class="stat-pill" id="hpBadge">HP: 20/20</div>
-      <div class="stat-pill" id="modeBadge">MODE: SURVIVAL (player)</div>
-      <div class="stat-pill" id="blockLabel">Oak Planks</div>
-      <div class="stat-pill" id="placedCounter">Placed: 0</div>
+    <div class="hud-row">
+      <button type="button" class="hud-btn" id="btnSound">Sound: ON</button>
+      <button type="button" class="hud-btn" id="btnEnterLock">Lock Mouse</button>
     </div>
   </header>
 
-  <div id="crosshair" aria-hidden="true"></div>
-
-  <!-- Chat & Commands Box -->
-  <aside class="chat-panel" id="chatPanel" aria-label="Chat and Commands">
-    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+  <aside class="chat-panel" aria-label="Chat and commands">
+    <div class="chat-messages" id="chatMessages"></div>
     <form class="chat-form" id="chatForm" autocomplete="off">
       <input
         type="text"
         id="chatInput"
         class="chat-input"
-        placeholder="Press T or / to chat or run commands (gamemode player creative, gamerule keep_inventory true)..."
+        placeholder="Press T or / for chat &amp; commands..."
         aria-label="Chat or command input"
       />
-      <button type="submit" class="hud-btn primary">Send</button>
+      <button type="submit" class="hud-btn">Send</button>
     </form>
   </aside>
 
-  <!-- Survival Inventory & 2x2 Crafting Modal (Press E in Survival Mode) -->
-  <div class="creative-modal hidden" id="survivalModal" role="dialog" aria-modal="true" aria-labelledby="survivalTitle">
-    <div class="creative-card survival-card">
-      <div class="creative-head">
-        <div>
-          <span class="creative-tag survival-tag">SURVIVAL INVENTORY • MAX RARITY: DIAMOND</span>
-          <h2 id="survivalTitle">Inventory &amp; Crafting</h2>
-        </div>
-        <button type="button" class="hud-btn" id="btnCloseSurvival">Close (E / Esc)</button>
-      </div>
+  <footer class="hud-bottom">
+    <div class="block-name" id="blockLabel">Diamond Pickaxe</div>
+    <div class="hotbar" id="hotbar" role="toolbar" aria-label="Hotbar"></div>
+    <div class="controls-hint">
+      WASD Move • Space Jump • Left/Right Mine or Place • E Inventory/Craft • T Chat
+    </div>
+  </footer>
 
-      <div class="craft-zone">
-        <div class="craft-box">
-          <div class="craft-label">2×2 Crafting Grid (Click slot to clear)</div>
-          <div class="craft-grid-2x2" id="craftGrid"></div>
-        </div>
-
-        <div class="craft-arrow" aria-hidden="true">➜</div>
-
-        <div class="craft-box craft-result-box">
-          <div class="craft-label">Crafted Output</div>
-          <button type="button" class="craft-output" id="craftOutputBtn" title="Click to craft">
-            <span class="craft-empty-text">No Recipe</span>
-          </button>
-          <div class="craft-recipe-hint" id="craftRecipeHint">Tip: 2 Planks = 4 Sticks • 2 Sticks + 2 Tier Material = Pickaxe (Max: Diamond)</div>
-        </div>
-      </div>
-
-      <div class="inv-section-title">Backpack (27 Slots — Click item to add to 2×2 grid)</div>
-      <div class="inv-grid-27" id="backpackGrid"></div>
-
-      <div class="inv-section-title">Hotbar (8 Slots)</div>
-      <div class="inv-grid-8" id="survivalHotbarGrid"></div>
+  <!-- Pointer Lock Overlay -->
+  <div class="lock-overlay" id="lockOverlay">
+    <div class="overlay-card">
+      <h1>Minecraft Voxel Sandbox</h1>
+      <p>
+        Explore chunked biomes, villages, and caves down to <code>y = -50</code>.
+        Craft tools, switch gamemodes via chat, and survive night mobs!
+      </p>
+      <button type="button" class="primary-btn" id="btnOverlayStart">Enter World</button>
     </div>
   </div>
 
-  <!-- Creative 50-Block Inventory Modal (Press E in Creative Mode) -->
-  <div class="creative-modal hidden" id="creativeModal" role="dialog" aria-modal="true" aria-labelledby="creativeTitle">
-    <div class="creative-card">
-      <div class="creative-head">
-        <div>
-          <span class="creative-tag">CREATIVE INVENTORY • 50 BLOCKS</span>
-          <h2 id="creativeTitle">Select a Block for Hotbar Slot <span id="targetSlotNum">1</span></h2>
-        </div>
-        <button type="button" class="hud-btn" id="btnCloseCreative">Close (E / Esc)</button>
+  <!-- Survival Inventory & 2x2 Crafting Modal -->
+  <div class="modal hidden" id="survivalModal" role="dialog" aria-modal="true" aria-label="Survival Inventory and Crafting">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Survival Inventory &amp; 2×2 Crafting</h2>
+        <button type="button" class="hud-btn" id="btnCloseSurvival">Close (E)</button>
       </div>
 
+      <div class="craft-zone">
+        <div class="craft-grid" id="craftGrid" aria-label="2 by 2 crafting grid"></div>
+        <div class="craft-arrow">➔</div>
+        <button type="button" class="craft-output" id="craftOutputBtn" disabled>
+          <span class="craft-empty-text">No Recipe</span>
+        </button>
+      </div>
+
+      <div class="inv-section-title">Backpack (Click an item to move into 2×2 crafting)</div>
+      <div class="inv-grid" id="backpackGrid"></div>
+
+      <div class="inv-section-title">Hotbar</div>
+      <div class="inv-grid hotbar-inv" id="survivalHotbarGrid"></div>
+    </div>
+  </div>
+
+  <!-- Creative Block Picker Modal -->
+  <div class="modal hidden" id="creativeModal" role="dialog" aria-modal="true" aria-label="Creative Block Picker">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Creative Blocks (Slot <span id="targetSlotNum">1</span>)</h2>
+        <button type="button" class="hud-btn" id="btnCloseCreative">Close (E)</button>
+      </div>
       <input
         type="search"
         id="creativeSearch"
-        class="creative-search"
-        placeholder="Search among 50 blocks (stone, neon, wood, ore, wool, tile...)"
+        class="search-input"
+        placeholder="Search blocks (grass, stone, ore, wool, glass...)"
         aria-label="Search creative blocks"
       />
-
       <div class="creative-grid" id="creativeGrid"></div>
     </div>
   </div>
 
-  <div id="lockOverlay">
-    <div class="lock-card">
-      <h2>Click to Enter First-Person</h2>
-      <p>Move with <strong>WASD</strong>, jump with <strong>Space</strong>, look with <strong>Mouse</strong>, <strong>Left-Click</strong> attack/place/mine, <strong>Hold Right-Click</strong> to slowly break blocks in Survival, <strong>T / /</strong> chat &amp; commands, and <strong>E</strong> for Inventory &amp; Crafting.</p>
-      <button type="button" class="hud-btn primary" id="btnOverlayStart">Start Exploring</button>
-    </div>
-  </div>
-
-  <div class="hotbar-wrap">
-    <div class="hotbar" id="hotbar" role="listbox" aria-label="Block and tool hotbar"></div>
-    <div class="help-strip">WASD Move • Space Jump • Hold RMB Slowly Mine • LMB Attack/Place • T/Slash Chat • E Inventory</div>
-  </div>
-
-  <script src="arcade-quests.js"></script>
   <script type="module" src="builder.js"></script>
 </body>
 </html>
