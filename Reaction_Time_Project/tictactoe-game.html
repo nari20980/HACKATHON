@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Tic-Tac-Toe — X vs O</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tictactoe-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">⭕</div>
+      <div>
+        <h1>Arcade <span>Tic-Tac-Toe</span></h1>
+        <p>Line up three X's or O's in a row vs AI or a friend</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="tetris-game.html">🟦 Tetris</a>
+      <a class="nav-link" href="sudoku-game.html">🔢 Sudoku</a>
+      <a class="nav-link" href="chess-game.html">♟️ Chess</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="tttHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">3-IN-A-ROW</span>
+          <h2 id="tttHeading">Tic-Tac-Toe</h2>
+        </div>
+
+        <div class="top-actions">
+          <button type="button" class="btn-secondary active" id="btnTttAi">vs AI</button>
+          <button type="button" class="btn-secondary" id="btnTtt2p">2 Players</button>
+          <button type="button" class="btn-primary" id="btnTttReset">New Round</button>
+        </div>
+      </div>
+
+      <div class="ttt-grid" id="tttGrid" role="grid" aria-label="Tic Tac Toe 3 by 3 board"></div>
+
+      <p class="status-msg" id="tttStatus" role="status" aria-live="polite">
+        Player X goes first. Win to earn +20 XP &amp; +10 Coins!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="tictactoe-game.js"></script>
+</body>
+</html>

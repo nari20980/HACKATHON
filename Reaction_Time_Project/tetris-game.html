@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Tetris — Clear Lines &amp; Score</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tetris-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🟦</div>
+      <div>
+        <h1>Arcade <span>Tetris</span></h1>
+        <p>Rotate, slide, and drop tetrominoes to clear horizontal lines</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="sudoku-game.html">🔢 Sudoku</a>
+      <a class="nav-link" href="chess-game.html">♟️ Chess</a>
+      <a class="nav-link" href="tictactoe-game.html">⭕ Tic-Tac-Toe</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="tetrisHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">BLOCK STACKER</span>
+          <h2 id="tetrisHeading">Neon Tetris</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>SCORE</span><strong id="tetrisScore">0</strong></div>
+          <div class="stat-box"><span>LINES</span><strong id="tetrisLines">0</strong></div>
+          <div class="stat-box"><span>BEST</span><strong id="tetrisBest">0</strong></div>
+        </div>
+      </div>
+
+      <div class="board-area">
+        <canvas id="tetrisCanvas" width="240" height="480" aria-label="Tetris board"></canvas>
+
+        <div class="side-col">
+          <div class="next-box">
+            <span>NEXT PIECE</span>
+            <canvas id="nextCanvas" width="96" height="96" aria-label="Next piece preview"></canvas>
+          </div>
+
+          <button type="button" class="btn-primary" id="btnTetrisStart">Start / Restart</button>
+
+          <div class="pad-grid" aria-label="Touch controls">
+            <button type="button" class="pad-btn" data-act="rotate">↻</button>
+            <button type="button" class="pad-btn" data-act="up">↑</button>
+            <button type="button" class="pad-btn" data-act="drop">⬇</button>
+            <button type="button" class="pad-btn" data-act="left">←</button>
+            <button type="button" class="pad-btn" data-act="down">↓</button>
+            <button type="button" class="pad-btn" data-act="right">→</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="status-msg" id="tetrisStatus" role="status" aria-live="polite">
+        ←/→ or A/D to move, ↑/W/X to rotate, ↓/S to soft drop, Space to hard drop. Clear 4+ lines for XP &amp; Coins!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="tetris-game.js"></script>
+</body>
+</html>

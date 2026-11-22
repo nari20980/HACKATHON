@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Mini Golf — Aim, Putt &amp; Sink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="mini-golf.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">⛳</div>
+      <div>
+        <h1>Arcade <span>Mini Golf</span></h1>
+        <p>Drag back from the ball to aim and set power, then sink into the cup</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="bowling-game.html">🎳 Bowling</a>
+      <a class="nav-link" href="magic-tiles.html">🎹 Magic Tiles</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="golfHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-emerald">PUTTING COURSE</span>
+          <h2 id="golfHeading">Neon Mini Golf</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>HOLE</span><strong id="golfHole">1 / 3</strong></div>
+          <div class="stat-box"><span>STROKES</span><strong id="golfStrokes">0</strong></div>
+          <div class="stat-box"><span>TOTAL</span><strong id="golfTotal">0</strong></div>
+        </div>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="golfCanvas" width="520" height="340" aria-label="Mini golf course"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-secondary" id="btnRetryHole">Retry Hole</button>
+        <button type="button" class="btn-primary" id="btnNextHole">Next Hole</button>
+      </div>
+
+      <p class="status-msg" id="golfStatus" role="status" aria-live="polite">
+        Click and drag backward from the ball to aim and choose power, then release to putt!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="mini-golf.js"></script>
+</body>
+</html>

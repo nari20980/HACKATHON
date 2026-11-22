@@ -9,6 +9,209 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shop.css" />
 </head>
+<style>
+  .purchase-toast {
+    position: fixed;
+    top: 4.75rem;
+    right: 1.25rem;
+    z-index: 999;
+    max-width: min(360px, calc(100vw - 2rem));
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    background: rgba(15, 23, 46, 0.94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(16, 185, 129, 0.55);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 24px rgba(16, 185, 129, 0.18);
+    color: #f8fafc;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transform: translateY(-10px) scale(0.97);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+  }
+
+  .purchase-toast.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .purchase-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+  }
+
+  .purchase-toast-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .purchase-toast-tag {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #6ee7b7;
+    margin-bottom: 0.18rem;
+  }
+
+  .purchase-toast-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .purchase-toast-sub {
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .purchase-toast-close {
+    appearance: none;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: rgba(4, 8, 20, 0.75);
+    color: #94a3b8;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .purchase-toast-close:hover {
+    color: #f8fafc;
+    border-color: rgba(34, 211, 238, 0.45);
+  }
+</style>
+
+<div class="purchase-toast" id="purchasePopup" role="dialog" aria-live="polite" aria-label="Purchase confirmation">
+  <div class="purchase-toast-icon" aria-hidden="true">🛒</div>
+  <div class="purchase-toast-body">
+    <span class="purchase-toast-tag">PURCHASE CONFIRMED</span>
+    <div class="purchase-toast-title" id="purchasePopupTitle">Item Purchased</div>
+    <div class="purchase-toast-sub" id="purchasePopupSub">Added to your inventory.</div>
+  </div>
+  <button type="button" class="purchase-toast-close" id="purchasePopupClose" aria-label="Close pop-up">×</button>
+</div>
+
+<script>
+  'use strict';
+
+  (function () {
+    const popup = document.getElementById('purchasePopup');
+    const titleEl = document.getElementById('purchasePopupTitle');
+    const subEl = document.getElementById('purchasePopupSub');
+    const closeBtn = document.getElementById('purchasePopupClose');
+    let hideTimer = null;
+
+    function hidePopup() {
+      if (!popup) return;
+      popup.classList.remove('show');
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
+    }
+
+    function showPurchasePopup(itemName, costText, coinsLeftText) {
+      if (!popup || !titleEl || !subEl) return;
+      titleEl.textContent = `You bought: ${itemName}`;
+      const details = [];
+      if (costText) details.push(`Cost: ${costText}`);
+      if (coinsLeftText) details.push(`Balance: ${coinsLeftText}`);
+      subEl.textContent = details.length ? details.join(' • ') : 'Added to your unlocked perks!';
+
+      popup.classList.add('show');
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(hidePopup, 4000);
+    }
+
+    function extractItemName(card, btn) {
+      const explicit =
+        btn?.dataset?.itemName ||
+        btn?.dataset?.name ||
+        card?.dataset?.itemName ||
+        card?.dataset?.name;
+      if (explicit) return explicit.trim();
+
+      const heading = card?.querySelector('h2, h3, h4, .item-title, .shop-item-title, [data-item-title]');
+      if (heading && heading.textContent.trim()) {
+        return heading.textContent.trim();
+      }
+      return 'Shop Item';
+    }
+
+    function extractCostText(card, btn) {
+      const explicit = btn?.dataset?.cost || card?.dataset?.cost || card?.dataset?.price;
+      if (explicit) return `${explicit} Coins`;
+
+      const priceEl = card?.querySelector('.price, .cost, .item-cost, .coin-cost, [data-cost]');
+      if (priceEl && priceEl.textContent.trim()) {
+        return priceEl.textContent.trim();
+      }
+
+      const btnText = btn?.textContent?.trim() || '';
+      const match = btnText.match(/(\d+)\s*coins?/i);
+      return match ? `${match[1]} Coins` : '';
+    }
+
+    function readCoinsBalance() {
+      const api = window.ArcadeQuests;
+      if (api && typeof api.loadData === 'function') {
+        const d = api.loadData();
+        if (d && typeof d.coins === 'number') return `${d.coins} Coins`;
+      }
+      const balEl = document.querySelector('#shopCoins, #coinBalance, [data-coins]');
+      return balEl ? balEl.textContent.trim() : '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('button, [role="button"]');
+      if (!btn) return;
+      if (btn === closeBtn || popup?.contains(btn)) return;
+
+      const card = btn.closest('.shop-card, .item-card, .perk-card, .product-card, article, .card');
+      const isBuyButton =
+        Boolean(btn.dataset.buy || btn.dataset.itemId || btn.dataset.purchase) ||
+        Boolean(card) ||
+        /buy|purchase|unlock/i.test(btn.textContent || '');
+
+      if (!isBuyButton) return;
+      if (btn.disabled || /owned|equipped/i.test(btn.textContent || '')) return;
+
+      const itemName = extractItemName(card, btn);
+      const costText = extractCostText(card, btn);
+
+      // Let existing click handlers update ArcadeQuests / DOM first, then read balance
+      setTimeout(() => {
+        showPurchasePopup(itemName, costText, readCoinsBalance());
+      }, 30);
+    });
+
+    closeBtn?.addEventListener('click', hidePopup);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hidePopup();
+    });
+  })();
+</script>
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="orb orb-cyan" aria-hidden="true"></div>

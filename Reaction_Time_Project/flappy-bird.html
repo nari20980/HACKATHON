@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Flappy Bird — Flap Through Pipes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="flappy-bird.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🐦</div>
+      <div>
+        <h1>Arcade <span>Flappy Bird</span></h1>
+        <p>Click, tap, or press SPACE / ↑ to flap through pipe gaps</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="snake-game.html">🐍 Snake</a>
+      <a class="nav-link" href="draw-match.html">🖌️ Draw &amp; Match</a>
+      <a class="nav-link" href="word-hint-puzzle.html">🧩 Word Hints</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="flappyHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">FLIGHT REFLEX</span>
+          <h2 id="flappyHeading">Flappy Bird Arcade</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <span>SCORE</span>
+            <strong id="flappyScore">0</strong>
+          </div>
+          <div class="stat-box">
+            <span>BEST</span>
+            <strong id="flappyBest">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="flappyCanvas" width="380" height="460" aria-label="Flappy Bird game arena"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-primary" id="btnFlappyAction">Flap / Start</button>
+        <button type="button" class="btn-secondary" id="btnFlappyRestart">Restart</button>
+      </div>
+
+      <p class="status-msg" id="flappyStatus" role="status" aria-live="polite">
+        Press SPACE, ↑, or click/tap the canvas to flap! Score 8+ points to earn bonus XP and Coins.
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="flappy-bird.js"></script>
+</body>
+</html>

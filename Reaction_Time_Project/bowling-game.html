@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Bowling — Knock Down All 10 Pins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="bowling-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🎳</div>
+      <div>
+        <h1>Arcade <span>Bowling</span></h1>
+        <p>Shift left/right, aim your shot, and roll down the lane to knock pins</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="mini-golf.html">⛳ Mini Golf</a>
+      <a class="nav-link" href="magic-tiles.html">🎹 Magic Tiles</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="bowlHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">LANE PRECISION</span>
+          <h2 id="bowlHeading">Neon Bowling Lane</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>SCORE</span><strong id="bowlScore">0</strong></div>
+          <div class="stat-box"><span>BALL</span><strong id="bowlBall">1 / 2</strong></div>
+          <div class="stat-box"><span>BEST</span><strong id="bowlBest">0</strong></div>
+        </div>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="bowlCanvas" width="360" height="460" aria-label="Bowling lane"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-secondary" data-shift="-18">← Left</button>
+        <button type="button" class="btn-primary" id="btnBowlThrow">Roll Ball (SPACE)</button>
+        <button type="button" class="btn-secondary" data-shift="18">Right →</button>
+        <button type="button" class="btn-secondary" id="btnBowlReset">New Rack</button>
+      </div>
+
+      <p class="status-msg" id="bowlStatus" role="status" aria-live="polite">
+        Use ←/→ or A/D to position, then press SPACE or Roll Ball! Knock 8+ pins for XP &amp; Coins.
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="bowling-game.js"></script>
+</body>
+</html>

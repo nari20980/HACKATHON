@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Sudoku — Logic Grid Puzzle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="sudoku-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🔢</div>
+      <div>
+        <h1>Arcade <span>Sudoku</span></h1>
+        <p>Fill every row, column, and 3×3 box with digits 1–9</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="tetris-game.html">🟦 Tetris</a>
+      <a class="nav-link" href="chess-game.html">♟️ Chess</a>
+      <a class="nav-link" href="tictactoe-game.html">⭕ Tic-Tac-Toe</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="sudokuHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-emerald">NUMBER LOGIC</span>
+          <h2 id="sudokuHeading">9×9 Sudoku Grid</h2>
+        </div>
+
+        <div class="top-actions">
+          <button type="button" class="btn-secondary" id="btnCheckSudoku">Check Board</button>
+          <button type="button" class="btn-primary" id="btnNewSudoku">New Puzzle</button>
+        </div>
+      </div>
+
+      <div class="sudoku-board" id="sudokuBoard" role="grid" aria-label="Sudoku 9 by 9 grid"></div>
+
+      <div class="numpad" id="numpad" role="group" aria-label="Enter digit 1 to 9 or clear"></div>
+
+      <p class="status-msg" id="sudokuStatus" role="status" aria-live="polite">
+        Select an empty cell and type 1–9 or click a number button below. Solve the board for +35 XP &amp; +15 Coins!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="sudoku-game.js"></script>
+</body>
+</html>

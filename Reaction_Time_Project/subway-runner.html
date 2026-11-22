@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Subway Runner — Endless 3-Lane Dash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="subway-runner.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🚇</div>
+      <div>
+        <h1>Arcade <span>Subway Runner</span></h1>
+        <p>Endless 3-lane track—dodge trains &amp; barriers, jump, roll, and collect coins</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="flappy-bird.html">🐦 Flappy Bird</a>
+      <a class="nav-link" href="snake-game.html">🐍 Snake</a>
+      <a class="nav-link" href="geometry-dash.html">📐 Geometry Dash</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="runner-wrap">
+    <section class="runner-panel glass" aria-labelledby="runnerHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">ENDLESS 3-LANE RUNNER</span>
+          <h2 id="runnerHeading">Subway Surfer Dash</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>DIST</span><strong id="runDist">0m</strong></div>
+          <div class="stat-box"><span>COINS</span><strong id="runCoins">0</strong></div>
+          <div class="stat-box"><span>BEST</span><strong id="runBest">0m</strong></div>
+        </div>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="runnerCanvas" width="380" height="480" aria-label="Endless subway runner track"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-primary" id="btnRunStart">Start / Restart</button>
+        <div class="move-pad" aria-label="Runner controls">
+          <button type="button" class="pad-btn" data-cmd="left" aria-label="Move Left">←</button>
+          <button type="button" class="pad-btn" data-cmd="jump" aria-label="Jump">↑</button>
+          <button type="button" class="pad-btn" data-cmd="roll" aria-label="Roll">↓</button>
+          <button type="button" class="pad-btn" data-cmd="right" aria-label="Move Right">→</button>
+        </div>
+      </div>
+
+      <p class="status-msg" id="runnerStatus" role="status" aria-live="polite">
+        ←/→ or A/D to switch lanes, ↑/W/Space to jump, ↓/S to roll. The track never ends!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="subway-runner.js"></script>
+</body>
+</html>

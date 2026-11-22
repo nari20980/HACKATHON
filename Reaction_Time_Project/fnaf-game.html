@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Night Shift — Five Nights Survival</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="fnaf-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🐻</div>
+      <div>
+        <h1>Arcade <span>Night Shift</span></h1>
+        <p>Monitor cameras, manage power, and shut the door before 6 AM</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="subway-runner.html">🚇 Subway Runner</a>
+      <a class="nav-link" href="magic-tiles.html">🎹 Magic Tiles</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="fnaf-wrap">
+    <section class="fnaf-panel glass" aria-labelledby="fnafHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-violet">NIGHT SURVIVAL</span>
+          <h2 id="fnafHeading">Security Office (12 AM – 6 AM)</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>TIME</span><strong id="fnafTime">12 AM</strong></div>
+          <div class="stat-box"><span>POWER</span><strong id="fnafPower">100%</strong></div>
+          <div class="stat-box"><span>USAGE</span><strong id="fnafUsage">1x</strong></div>
+        </div>
+      </div>
+
+      <div class="monitor-box">
+        <canvas id="fnafCanvas" width="480" height="290" aria-label="Security office and camera monitor"></canvas>
+      </div>
+
+      <div class="controls-grid">
+        <button type="button" class="btn-door" id="btnToggleDoor">🚪 Door: OPEN (D)</button>
+        <button type="button" class="btn-cam" id="btnToggleCam">📷 Monitor: OFF (C)</button>
+        <button type="button" class="btn-cam-view" id="btnCam1">CAM 1: Stage</button>
+        <button type="button" class="btn-cam-view" id="btnCam2">CAM 2: Hall</button>
+        <button type="button" class="btn-restart" id="btnRestartNight">Restart Night</button>
+      </div>
+
+      <p class="status-msg" id="fnafStatus" role="status" aria-live="polite">
+        Survive from 12 AM to 6 AM! Watch CAM 1 &amp; CAM 2 and close the door when the bot reaches the hall.
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="fnaf-game.js"></script>
+</body>
+</html>

@@ -3,84 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arcade Builder — 5x5 Block Grid</title>
+  <title>Arcade First-Person Voxel World</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="builder.css" />
 </head>
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="orb orb-cyan" aria-hidden="true"></div>
-  <div class="orb orb-violet" aria-hidden="true"></div>
+  <canvas id="worldCanvas"></canvas>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-logo" aria-hidden="true">🧱</div>
-      <div>
-        <h1>Arcade <span>Block Builder</span></h1>
-        <p>Select a block from the hotbar and tap or drag on the 5×5 grid</p>
-      </div>
+  <header class="hud-top">
+    <div class="hud-card">
+      <div class="brand-title">First-Person <span>Voxel</span></div>
+      <a class="hud-btn" href="main.html">Home</a>
+      <button type="button" class="hud-btn primary" id="btnEnterLock">Look Around</button>
+      <button type="button" class="hud-btn" id="btnSound">Sound: ON</button>
     </div>
 
-    <nav class="nav-actions" aria-label="Page Navigation">
-      <a class="nav-link" href="main.html">🏠 Home</a>
-      <a class="nav-link" href="quests.html">📜 Quests</a>
-      <a class="nav-link" href="levels.html">⚡ Levels</a>
-      <a class="nav-link" href="shop.html">🛒 Shop</a>
-      <button type="button" class="clear-btn" id="btnClearGrid">🗑️ Clear Grid</button>
-    </nav>
+    <div class="hud-card">
+      <div class="stat-pill" id="modeBadge">MODE: SURVIVAL (player)</div>
+      <div class="stat-pill" id="blockLabel">Oak Planks</div>
+      <div class="stat-pill" id="placedCounter">Placed: 0</div>
+    </div>
   </header>
 
-  <main class="builder-wrap">
-    <section class="builder-panel glass" aria-labelledby="builderHeading">
-      <div class="panel-head">
+  <div id="crosshair" aria-hidden="true"></div>
+
+  <!-- Chat & Commands Box -->
+  <aside class="chat-panel" id="chatPanel" aria-label="Chat and Commands">
+    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+    <form class="chat-form" id="chatForm" autocomplete="off">
+      <input
+        type="text"
+        id="chatInput"
+        class="chat-input"
+        placeholder="Press T or / to chat or run commands (gamemode player creative, gamerule keep_inventory true)..."
+        aria-label="Chat or command input"
+      />
+      <button type="submit" class="hud-btn primary">Send</button>
+    </form>
+  </aside>
+
+  <!-- Survival Inventory & 2x2 Crafting Modal (Press E in Survival Mode) -->
+  <div class="creative-modal hidden" id="survivalModal" role="dialog" aria-modal="true" aria-labelledby="survivalTitle">
+    <div class="creative-card survival-card">
+      <div class="creative-head">
         <div>
-          <span class="tag tag-emerald">SANDBOX 5×5</span>
-          <h2 id="builderHeading">5×5 Building Canvas</h2>
+          <span class="creative-tag survival-tag">SURVIVAL INVENTORY • MAX RARITY: DIAMOND</span>
+          <h2 id="survivalTitle">Inventory &amp; Crafting</h2>
         </div>
-        <div class="status-pills">
-          <span class="pill" id="holdingLabel">Holding: Oak Log</span>
-          <span class="pill pill-cyan" id="blockCountLabel">0 / 25 Placed</span>
+        <button type="button" class="hud-btn" id="btnCloseSurvival">Close (E / Esc)</button>
+      </div>
+
+      <div class="craft-zone">
+        <div class="craft-box">
+          <div class="craft-label">2×2 Crafting Grid (Click slot to clear)</div>
+          <div class="craft-grid-2x2" id="craftGrid"></div>
+        </div>
+
+        <div class="craft-arrow" aria-hidden="true">➜</div>
+
+        <div class="craft-box craft-result-box">
+          <div class="craft-label">Crafted Output</div>
+          <button type="button" class="craft-output" id="craftOutputBtn" title="Click to craft">
+            <span class="craft-empty-text">No Recipe</span>
+          </button>
+          <div class="craft-recipe-hint" id="craftRecipeHint">Tip: 2 Planks = 4 Sticks • 3 Material + 2 Sticks = Pickaxe</div>
         </div>
       </div>
 
-      <div class="grid-stage">
-        <div class="block-grid" id="blockGrid" role="grid" aria-label="5 by 5 block grid"></div>
-      </div>
+      <div class="inv-section-title">Backpack (27 Slots — Click item to add to 2×2 grid)</div>
+      <div class="inv-grid-27" id="backpackGrid"></div>
 
-      <div class="hotbar-dock" aria-label="Minecraft Hotbar">
-        <div class="hotbar" id="hotbar">
-          <button type="button" class="hotbar-slot active" data-block="oak_log" aria-label="Slot 1: Oak Log">
-            <span class="slot-key">1</span>
-            <span class="block-preview tex-oak-log" aria-hidden="true"></span>
-            <span class="slot-name">Oak Log</span>
-          </button>
+      <div class="inv-section-title">Hotbar (8 Slots)</div>
+      <div class="inv-grid-8" id="survivalHotbarGrid"></div>
+    </div>
+  </div>
 
-          <button type="button" class="hotbar-slot" data-block="oak_planks" aria-label="Slot 2: Oak Planks">
-            <span class="slot-key">2</span>
-            <span class="block-preview tex-oak-planks" aria-hidden="true"></span>
-            <span class="slot-name">Oak Planks</span>
-          </button>
-
-          <button type="button" class="hotbar-slot" data-block="cobblestone" aria-label="Slot 3: Cobblestone">
-            <span class="slot-key">3</span>
-            <span class="block-preview tex-cobblestone" aria-hidden="true"></span>
-            <span class="slot-name">Cobblestone</span>
-          </button>
-
-          <button type="button" class="hotbar-slot" data-block="air" aria-label="Slot 4: Eraser">
-            <span class="slot-key">4</span>
-            <span class="block-preview tex-eraser" aria-hidden="true">✕</span>
-            <span class="slot-name">Erase</span>
-          </button>
+  <!-- Creative 50-Block Inventory Modal (Press E in Creative Mode) -->
+  <div class="creative-modal hidden" id="creativeModal" role="dialog" aria-modal="true" aria-labelledby="creativeTitle">
+    <div class="creative-card">
+      <div class="creative-head">
+        <div>
+          <span class="creative-tag">CREATIVE INVENTORY • 50 BLOCKS</span>
+          <h2 id="creativeTitle">Select a Block for Hotbar Slot <span id="targetSlotNum">1</span></h2>
         </div>
-        <p class="controls-hint">Tap/click or drag across squares to place • Right-click or press 1–4 to switch tools</p>
+        <button type="button" class="hud-btn" id="btnCloseCreative">Close (E / Esc)</button>
       </div>
-    </section>
-  </main>
+
+      <input
+        type="search"
+        id="creativeSearch"
+        class="creative-search"
+        placeholder="Search among 50 blocks (stone, neon, wood, ore, wool, tile...)"
+        aria-label="Search creative blocks"
+      />
+
+      <div class="creative-grid" id="creativeGrid"></div>
+    </div>
+  </div>
+
+  <div id="lockOverlay">
+    <div class="lock-card">
+      <h2>Click to Enter First-Person</h2>
+      <p>Move with <strong>WASD</strong>, jump with <strong>Space</strong>, look with <strong>Mouse</strong>, <strong>Left-Click</strong> place/mine, <strong>Right-Click</strong> break, <strong>T / /</strong> chat &amp; commands, and <strong>E</strong> for Inventory &amp; Crafting.</p>
+      <button type="button" class="hud-btn primary" id="btnOverlayStart">Start Exploring</button>
+    </div>
+  </div>
+
+  <div class="hotbar-wrap">
+    <div class="hotbar" id="hotbar" role="listbox" aria-label="Block and tool hotbar"></div>
+    <div class="help-strip">WASD Move • Space Jump • LMB Place/Use • RMB Mine • T/Slash Chat &amp; Cmds • E Inventory/Craft</div>
+  </div>
 
   <script src="arcade-quests.js"></script>
-  <script src="builder.js"></script>
+  <script type="module" src="builder.js"></script>
 </body>
 </html>

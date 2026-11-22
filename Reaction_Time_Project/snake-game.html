@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Snake — Eat Apples &amp; Grow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="snake-game.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🐍</div>
+      <div>
+        <h1>Arcade <span>Snake</span></h1>
+        <p>Eat apples that spawn around the map and grow your snake</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="flappy-bird.html">🐦 Flappy Bird</a>
+      <a class="nav-link" href="draw-match.html">🖌️ Draw &amp; Match</a>
+      <a class="nav-link" href="word-hint-puzzle.html">🧩 Word Hints</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="shop.html">🛒 Shop</a>
+    </nav>
+  </header>
+
+  <main class="game-wrap">
+    <section class="game-panel glass" aria-labelledby="snakeHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-emerald">APPLE HUNT</span>
+          <h2 id="snakeHeading">Snake Arena</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <span>APPLES</span>
+            <strong id="snakeScore">0</strong>
+          </div>
+          <div class="stat-box">
+            <span>BEST</span>
+            <strong id="snakeBest">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="snakeCanvas" width="380" height="380" aria-label="Snake game map"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-primary" id="btnSnakeStart">Start / Restart</button>
+        <div class="dpad" aria-label="Direction buttons">
+          <button type="button" class="dir-btn" data-dir="up" aria-label="Move Up">↑</button>
+          <button type="button" class="dir-btn" data-dir="left" aria-label="Move Left">←</button>
+          <button type="button" class="dir-btn" data-dir="down" aria-label="Move Down">↓</button>
+          <button type="button" class="dir-btn" data-dir="right" aria-label="Move Right">→</button>
+        </div>
+      </div>
+
+      <p class="status-msg" id="snakeStatus" role="status" aria-live="polite">
+        Use Arrow keys, WASD, swipe, or the direction buttons to eat red apples! Eat 8+ apples for XP &amp; Coins.
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="snake-game.js"></script>
+</body>
+</html>

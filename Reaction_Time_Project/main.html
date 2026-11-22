@@ -122,6 +122,35 @@
       }
     }
 
+    @keyframes flappyBob {
+      0%, 100% {
+        transform: translateY(-6px) rotate(-6deg);
+      }
+      50% {
+        transform: translateY(6px) rotate(6deg);
+      }
+    }
+
+    @keyframes snakePulse {
+      0%, 100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.45);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 16px rgba(244, 63, 94, 0.45);
+      }
+    }
+
+    @keyframes dashHop {
+      0%, 100% {
+        transform: translateY(4px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(90deg);
+      }
+    }
+
     .orb-cyan {
       animation: orbFloat 9s ease-in-out infinite;
     }
@@ -236,7 +265,7 @@
       color: var(--muted);
       font-size: clamp(0.88rem, 2vw, 0.98rem);
       line-height: 1.55;
-      max-width: 560px;
+      max-width: 580px;
     }
 
     .stage-tabs {
@@ -249,9 +278,9 @@
     .stage-tab {
       appearance: none;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.42rem 0.78rem;
+      padding: 0.4rem 0.72rem;
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       background: var(--surface-deep);
@@ -269,7 +298,7 @@
 
     .stage-visual {
       position: relative;
-      min-height: 200px;
+      min-height: 210px;
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.22);
@@ -567,23 +596,53 @@
       animation: paletteCycle 1.8s ease-in-out infinite;
     }
 
-    .color-orb-dot.c1 {
+    .color-orb-dot.c1 { background: #22d3ee; }
+    .color-orb-dot.c2 { background: #a855f7; animation-delay: 0.2s; }
+    .color-orb-dot.c3 { background: #10b981; animation-delay: 0.4s; }
+    .color-orb-dot.c4 { background: #f59e0b; animation-delay: 0.6s; }
+
+    .flappy-preview-bird {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fde047 0%, #f59e0b 70%, #b45309 100%);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      animation: flappyBob 1.4s ease-in-out infinite;
+    }
+
+    .snake-apple-chip {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fb7185 0%, #f43f5e 75%);
+      border: 2px solid #10b981;
+      animation: snakePulse 1.5s ease-in-out infinite;
+    }
+
+    .dash-cube-preview {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
       background: #22d3ee;
+      border: 2px solid #ffffff;
+      animation: dashHop 1.3s ease-in-out infinite;
     }
 
-    .color-orb-dot.c2 {
-      background: #a855f7;
-      animation-delay: 0.2s;
+    .board-chip-row {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
     }
 
-    .color-orb-dot.c3 {
-      background: #10b981;
-      animation-delay: 0.4s;
-    }
-
-    .color-orb-dot.c4 {
-      background: #f59e0b;
-      animation-delay: 0.6s;
+    .board-chip {
+      padding: 0.32rem 0.62rem;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 46, 0.9);
+      color: #e2e8f0;
     }
 
     @media (max-width: 900px) {
@@ -904,7 +963,10 @@
       .hint-word-chip,
       .mini-swatch,
       .aim-bull-dot,
-      .color-orb-dot {
+      .color-orb-dot,
+      .flappy-preview-bird,
+      .snake-apple-chip,
+      .dash-cube-preview {
         animation: none;
       }
       .picker-card::before {
@@ -923,7 +985,7 @@
       <div class="brand-logo" aria-hidden="true">🎮</div>
       <div>
         <h1>Arcade <span>Main Page</span></h1>
-        <p>Select a reflex, clicking, aim, draw-and-match, word-hint puzzle, or block-building mode</p>
+        <p>Play games, earn XP &amp; coins, and redeem XP for shoes, phones, headphones, and gear</p>
       </div>
     </div>
 
@@ -931,12 +993,25 @@
       <a class="game-btn active" href="index2.html?game=reaction">⚡ Reaction Test</a>
       <a class="game-btn" href="index2.html?game=clicker">🖱️ Clicker Test</a>
       <a class="game-btn" href="aim.html">🎯 Aim Test</a>
+      <a class="game-btn" href="flappy-bird.html">🐦 Flappy Bird</a>
+      <a class="game-btn" href="snake-game.html">🐍 Snake</a>
+      <a class="game-btn" href="geometry-dash.html">📐 Geometry Dash</a>
+      <a class="game-btn" href="tetris-game.html">🟦 Tetris</a>
+      <a class="game-btn" href="sudoku-game.html">🔢 Sudoku</a>
+      <a class="game-btn" href="chess-game.html">♟️ Chess</a>
+      <a class="game-btn" href="tictactoe-game.html">⭕ Tic-Tac-Toe</a>
       <a class="game-btn" href="draw-match.html">🖌️ Draw &amp; Match</a>
       <a class="game-btn" href="word-hint-puzzle.html">🧩 Word Hint Puzzle</a>
-      <a class="game-btn" href="builder.html">🧱 5×5 Builder</a>
+      <a class="game-btn" href="builder.html">🌍 Block World</a>
+      <a class="game-btn" href="mini-golf.html">⛳ Mini Golf</a>
+      <a class="game-btn" href="bowling-game.html">🎳 Bowling</a>
+      <a class="game-btn" href="magic-tiles.html">🎹 Magic Tiles</a>
+      <a class="game-btn" href="subway-runner.html">🚇 Subway Runner</a>
+      <a class="game-btn" href="fnaf-game.html">🐻 Night Shift</a>
+      <a class="ghost-btn" href="xp-shop.html">⚡ XP Shop</a>
       <a class="ghost-btn" href="quests.html">📜 Quests</a>
       <a class="ghost-btn" href="levels.html">⚡ Levels</a>
-      <a class="ghost-btn" href="shop.html">🛒 Shop</a>
+      <a class="ghost-btn" href="shop.html">🛒 Coin Shop</a>
       <a class="ghost-btn" href="#contactSection">✉️ Contact Us</a>
     </nav>
   </header>
@@ -945,15 +1020,28 @@
     <section class="showcase-stage glass" aria-label="Featured Arcade Visual Showcase">
       <div class="showcase-copy">
         <div class="live-pill"><span class="live-dot" aria-hidden="true"></span> ARCADE ENGINE ONLINE</div>
-        <h2>Choose Your Game</h2>
-        <p>Pick between reflex speed, timed clicks, aim flicks, freehand target drawing, word-hint drag puzzles, or 5×5 block building.</p>
+        <h2>Choose Your Game or XP Reward</h2>
+        <p>Jump into 18 games or spend your XP in the XP Shop on shoes, phones, headphones, and gear.</p>
         <div class="stage-tabs" role="tablist" aria-label="Preview Modes">
-          <button type="button" class="stage-tab active" data-reel="reaction">⚡ Reflex Reel</button>
-          <button type="button" class="stage-tab" data-reel="clicker">🖱️ Clicker Reel</button>
-          <button type="button" class="stage-tab" data-reel="aim">🎯 Aim Reel</button>
-          <button type="button" class="stage-tab" data-reel="color">🖌️ Draw &amp; Match</button>
-          <button type="button" class="stage-tab" data-reel="puzzle">🧩 Word Hints</button>
-          <button type="button" class="stage-tab" data-reel="builder">🧱 5×5 Builder</button>
+          <button type="button" class="stage-tab active" data-reel="reaction">⚡ Reflex</button>
+          <button type="button" class="stage-tab" data-reel="clicker">🖱️ Clicker</button>
+          <button type="button" class="stage-tab" data-reel="aim">🎯 Aim</button>
+          <button type="button" class="stage-tab" data-reel="flappy">🐦 Flappy</button>
+          <button type="button" class="stage-tab" data-reel="snake">🐍 Snake</button>
+          <button type="button" class="stage-tab" data-reel="dash">📐 Dash</button>
+          <button type="button" class="stage-tab" data-reel="tetris">🟦 Tetris</button>
+          <button type="button" class="stage-tab" data-reel="sudoku">🔢 Sudoku</button>
+          <button type="button" class="stage-tab" data-reel="chess">♟️ Chess</button>
+          <button type="button" class="stage-tab" data-reel="ttt">⭕ Tic-Tac-Toe</button>
+          <button type="button" class="stage-tab" data-reel="color">🖌️ Draw</button>
+          <button type="button" class="stage-tab" data-reel="puzzle">🧩 Hints</button>
+          <button type="button" class="stage-tab" data-reel="builder">🌍 World</button>
+          <button type="button" class="stage-tab" data-reel="golf">⛳ Golf</button>
+          <button type="button" class="stage-tab" data-reel="bowling">🎳 Bowling</button>
+          <button type="button" class="stage-tab" data-reel="tiles">🎹 Tiles</button>
+          <button type="button" class="stage-tab" data-reel="subway">🚇 Subway</button>
+          <button type="button" class="stage-tab" data-reel="fnaf">🐻 Night Shift</button>
+          <button type="button" class="stage-tab" data-reel="xpshop">⚡ XP Shop</button>
         </div>
       </div>
 
@@ -969,23 +1057,42 @@
       </div>
     </section>
 
-    <section class="hub-quest-bar glass" aria-label="Quest, Coin, Shop, and XP Summary">
+    <section class="hub-quest-bar glass" aria-label="Quest, Coin, XP Shop, and XP Summary">
       <div class="hub-quest-status">
         <strong id="hubLevelXp">LEVEL 1 • 0 XP • 75 COINS</strong>
-        <span id="hubQuestsDone">0 of 4 quests completed • 0 perks owned</span>
+        <span id="hubQuestsDone">0 of 4 quests completed • 0 perks owned • 0 XP items redeemed</span>
         <div class="hub-xp-mini" aria-hidden="true">
           <div class="hub-xp-mini-fill" id="hubXpMiniFill"></div>
         </div>
       </div>
       <div class="hub-quest-links">
         <button type="button" class="hub-refresh-btn" id="btnHubRefreshQuests">↻ New Quests • 25 Coins</button>
-        <a class="ghost-btn" href="shop.html">🛒 Open Shop</a>
+        <a class="ghost-btn" href="xp-shop.html">⚡ XP Shop</a>
+        <a class="ghost-btn" href="shop.html">🛒 Coin Shop</a>
         <a class="ghost-btn" href="quests.html">View All Quests</a>
         <a class="ghost-btn" href="levels.html">Level Roadmap</a>
       </div>
     </section>
 
     <div class="picker-grid">
+      <a class="picker-card glass builder-card" id="pickXpShop" href="xp-shop.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">SPEND XP</span>
+            <div class="board-chip-row">
+              <span class="board-chip">👟 SHOES</span>
+              <span class="board-chip">📱 PHONES</span>
+              <span class="board-chip">🎧 HEADPHONES</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">⚡</div>
+          <span class="tag tag-amber">XP REWARD SHOP</span>
+          <h3>XP Shop (Shoes, Phones &amp; Headphones)</h3>
+          <p>Redeem your earned XP for sneakers, smartphones, over-ear headphones, earbuds, controllers, and gear.</p>
+        </div>
+        <span class="launch-btn">Open XP Shop →</span>
+      </a>
+
       <a class="picker-card glass" id="pickReaction" href="index2.html?game=reaction">
         <div>
           <div class="card-reel" aria-hidden="true">
@@ -1032,6 +1139,117 @@
         <span class="launch-btn">Play Aim Test →</span>
       </a>
 
+      <a class="picker-card glass" id="pickFlappy" href="flappy-bird.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">FLAP &amp; DODGE</span>
+            <div class="flappy-preview-bird"></div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🐦</div>
+          <span class="tag tag-cyan">FLIGHT REFLEX</span>
+          <h3>Flappy Bird</h3>
+          <p>Tap, click, or press SPACE to flap between pipes and rack up high scores without crashing.</p>
+        </div>
+        <span class="launch-btn">Play Flappy Bird →</span>
+      </a>
+
+      <a class="picker-card glass puzzle-card" id="pickSnake" href="snake-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">EAT APPLES</span>
+            <div class="snake-apple-chip"></div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🐍</div>
+          <span class="tag tag-emerald">APPLE HUNT</span>
+          <h3>Snake</h3>
+          <p>Steer around the map to eat spawned apples, grow longer, and avoid walls and your own tail.</p>
+        </div>
+        <span class="launch-btn">Play Snake →</span>
+      </a>
+
+      <a class="picker-card glass clicker-card" id="pickDash" href="geometry-dash.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">SPIKES &amp; BLOCKS</span>
+            <div class="dash-cube-preview"></div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">📐</div>
+          <span class="tag tag-violet">RHYTHM PLATFORMER</span>
+          <h3>Geometry Dash</h3>
+          <p>Jump over spikes, land on blocks, and dash through the course to hit 100% completion.</p>
+        </div>
+        <span class="launch-btn">Play Geometry Dash →</span>
+      </a>
+
+      <a class="picker-card glass" id="pickTetris" href="tetris-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">LINE CLEAR</span>
+            <div class="board-chip-row">
+              <span class="board-chip">I • O • T</span>
+              <span class="board-chip">S • Z • J • L</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🟦</div>
+          <span class="tag tag-cyan">BLOCK STACKER</span>
+          <h3>Tetris</h3>
+          <p>Rotate, slide, and drop falling tetrominoes to clear full rows and chase high scores.</p>
+        </div>
+        <span class="launch-btn">Play Tetris →</span>
+      </a>
+
+      <a class="picker-card glass puzzle-card" id="pickSudoku" href="sudoku-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">9×9 LOGIC</span>
+            <div class="board-chip-row">
+              <span class="board-chip">1 – 9</span>
+              <span class="board-chip">ROWS • COLS • 3×3</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🔢</div>
+          <span class="tag tag-emerald">NUMBER LOGIC</span>
+          <h3>Sudoku</h3>
+          <p>Fill every row, column, and 3×3 box with digits 1 through 9 without conflicts.</p>
+        </div>
+        <span class="launch-btn">Play Sudoku →</span>
+      </a>
+
+      <a class="picker-card glass clicker-card" id="pickChess" href="chess-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">AI OR 2P</span>
+            <div class="board-chip-row">
+              <span class="board-chip">♔ ♕ ♖</span>
+              <span class="board-chip">♗ ♘ ♙</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">♟️</div>
+          <span class="tag tag-violet">STRATEGY BOARD</span>
+          <h3>Chess</h3>
+          <p>Select pieces to see legal moves, outmaneuver AI or a friend, and capture the King.</p>
+        </div>
+        <span class="launch-btn">Play Chess →</span>
+      </a>
+
+      <a class="picker-card glass" id="pickTtt" href="tictactoe-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">3-IN-A-ROW</span>
+            <div class="board-chip-row">
+              <span class="board-chip">X</span>
+              <span class="board-chip">vs</span>
+              <span class="board-chip">O</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">⭕</div>
+          <span class="tag tag-cyan">CLASSIC DUEL</span>
+          <h3>Tic-Tac-Toe</h3>
+          <p>Line up three X's or O's horizontally, vertically, or diagonally against AI or a second player.</p>
+        </div>
+        <span class="launch-btn">Play Tic-Tac-Toe →</span>
+      </a>
+
       <a class="picker-card glass color-card" id="pickDrawMatch" href="draw-match.html">
         <div>
           <div class="card-reel" aria-hidden="true">
@@ -1071,19 +1289,108 @@
       <a class="picker-card glass builder-card" id="pickBuilder" href="builder.html">
         <div>
           <div class="card-reel" aria-hidden="true">
-            <span class="reel-badge">HOTBAR 1–4</span>
+            <span class="reel-badge">28×20 WORLD</span>
             <div class="builder-mini-strip">
               <div class="mini-swatch log"></div>
               <div class="mini-swatch planks"></div>
               <div class="mini-swatch cobble"></div>
             </div>
           </div>
-          <div class="picker-icon" aria-hidden="true">🧱</div>
-          <span class="tag tag-amber">5×5 BLOCK GRID</span>
-          <h3>Minecraft 5×5 Builder</h3>
-          <p>Hold Oak Log, Oak Planks, or Cobblestone in your hotbar and tap or drag on any square in the 5×5 grid to build.</p>
+          <div class="picker-icon" aria-hidden="true">🌍</div>
+          <span class="tag tag-amber">OPEN BLOCK WORLD</span>
+          <h3>Big Block World</h3>
+          <p>Walk around a big 28×20 block world, build structures, and break blocks with WASD, Arrows, or clicks.</p>
         </div>
-        <span class="launch-btn">Open 5×5 Builder →</span>
+        <span class="launch-btn">Enter Block World →</span>
+      </a>
+
+      <a class="picker-card glass puzzle-card" id="pickGolf" href="mini-golf.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">3 HOLES</span>
+            <div class="board-chip-row">
+              <span class="board-chip">AIM</span>
+              <span class="board-chip">PUTT</span>
+              <span class="board-chip">SINK</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">⛳</div>
+          <span class="tag tag-emerald">PUTTING COURSE</span>
+          <h3>Mini Golf</h3>
+          <p>Drag back from the ball to aim and set power, bank off walls, and sink into the cup.</p>
+        </div>
+        <span class="launch-btn">Play Mini Golf →</span>
+      </a>
+
+      <a class="picker-card glass" id="pickBowling" href="bowling-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">10 PINS</span>
+            <div class="board-chip-row">
+              <span class="board-chip">← / →</span>
+              <span class="board-chip">STRIKE</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🎳</div>
+          <span class="tag tag-cyan">LANE PRECISION</span>
+          <h3>Bowling</h3>
+          <p>Line up your position on the lane, roll the ball, and knock down all 10 pins.</p>
+        </div>
+        <span class="launch-btn">Play Bowling →</span>
+      </a>
+
+      <a class="picker-card glass clicker-card" id="pickTiles" href="magic-tiles.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">4 LANES</span>
+            <div class="board-chip-row">
+              <span class="board-chip">D</span>
+              <span class="board-chip">F</span>
+              <span class="board-chip">J</span>
+              <span class="board-chip">K</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🎹</div>
+          <span class="tag tag-violet">RHYTHM TILES</span>
+          <h3>Magic Tiles</h3>
+          <p>Tap falling tiles or use D / F / J / K (1–4) as they slide down the four lanes.</p>
+        </div>
+        <span class="launch-btn">Play Magic Tiles →</span>
+      </a>
+
+      <a class="picker-card glass" id="pickSubway" href="subway-runner.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">NEVER ENDS</span>
+            <div class="board-chip-row">
+              <span class="board-chip">3 LANES</span>
+              <span class="board-chip">JUMP • ROLL</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🚇</div>
+          <span class="tag tag-cyan">ENDLESS RUNNER</span>
+          <h3>Subway Runner</h3>
+          <p>Dash along an endless 3-lane track—dodge trains, jump barriers, roll, and collect coins.</p>
+        </div>
+        <span class="launch-btn">Play Subway Runner →</span>
+      </a>
+
+      <a class="picker-card glass clicker-card" id="pickFnaf" href="fnaf-game.html">
+        <div>
+          <div class="card-reel" aria-hidden="true">
+            <span class="reel-badge">12 AM – 6 AM</span>
+            <div class="board-chip-row">
+              <span class="board-chip">CAMS</span>
+              <span class="board-chip">DOOR</span>
+              <span class="board-chip">POWER</span>
+            </div>
+          </div>
+          <div class="picker-icon" aria-hidden="true">🐻</div>
+          <span class="tag tag-violet">NIGHT SURVIVAL</span>
+          <h3>Night Shift (FNAF)</h3>
+          <p>Monitor cameras, manage battery power, and shut the security door to survive until 6 AM.</p>
+        </div>
+        <span class="launch-btn">Play Night Shift →</span>
       </a>
     </div>
 
@@ -1145,6 +1452,55 @@
         accent: '#38bdf8',
         secondary: '#22d3ee'
       },
+      flappy: {
+        title: 'Flappy Bird Arcade',
+        meta: 'LIVE PREVIEW • FLAP THROUGH GAPS',
+        href: 'flappy-bird.html',
+        accent: '#f59e0b',
+        secondary: '#22d3ee'
+      },
+      snake: {
+        title: 'Snake Apple Hunt',
+        meta: 'LIVE PREVIEW • EAT APPLES & GROW',
+        href: 'snake-game.html',
+        accent: '#10b981',
+        secondary: '#f43f5e'
+      },
+      dash: {
+        title: 'Geometry Dash Course',
+        meta: 'LIVE PREVIEW • JUMP SPIKES & BLOCKS',
+        href: 'geometry-dash.html',
+        accent: '#a855f7',
+        secondary: '#22d3ee'
+      },
+      tetris: {
+        title: 'Neon Tetris Stacker',
+        meta: 'LIVE PREVIEW • CLEAR FULL ROWS',
+        href: 'tetris-game.html',
+        accent: '#22d3ee',
+        secondary: '#a855f7'
+      },
+      sudoku: {
+        title: '9×9 Sudoku Grid',
+        meta: 'LIVE PREVIEW • DIGITS 1–9 LOGIC',
+        href: 'sudoku-game.html',
+        accent: '#10b981',
+        secondary: '#22d3ee'
+      },
+      chess: {
+        title: '8×8 Chess Arena',
+        meta: 'LIVE PREVIEW • VS AI OR 2 PLAYERS',
+        href: 'chess-game.html',
+        accent: '#a855f7',
+        secondary: '#f8fafc'
+      },
+      ttt: {
+        title: 'Tic-Tac-Toe Duel',
+        meta: 'LIVE PREVIEW • THREE IN A ROW',
+        href: 'tictactoe-game.html',
+        accent: '#22d3ee',
+        secondary: '#d8b4fe'
+      },
       color: {
         title: 'Draw & Match Compatibility Studio',
         meta: 'LIVE PREVIEW • DRAW & SCORE %',
@@ -1160,11 +1516,53 @@
         secondary: '#22d3ee'
       },
       builder: {
-        title: 'Minecraft 5×5 Block Grid',
-        meta: 'LIVE PREVIEW • LOG • PLANKS • COBBLE',
+        title: 'Big Block World (28×20)',
+        meta: 'LIVE PREVIEW • EXPLORE, PLACE & BREAK',
         href: 'builder.html',
         accent: '#f59e0b',
         secondary: '#10b981'
+      },
+      golf: {
+        title: 'Neon Mini Golf',
+        meta: 'LIVE PREVIEW • AIM, PUTT & SINK',
+        href: 'mini-golf.html',
+        accent: '#10b981',
+        secondary: '#6ee7b7'
+      },
+      bowling: {
+        title: 'Neon Bowling Lane',
+        meta: 'LIVE PREVIEW • ROLL & KNOCK 10 PINS',
+        href: 'bowling-game.html',
+        accent: '#22d3ee',
+        secondary: '#f43f5e'
+      },
+      tiles: {
+        title: 'Magic Tiles Rhythm',
+        meta: 'LIVE PREVIEW • TAP FALLING TILES',
+        href: 'magic-tiles.html',
+        accent: '#a855f7',
+        secondary: '#22d3ee'
+      },
+      subway: {
+        title: 'Subway Runner Endless',
+        meta: 'LIVE PREVIEW • NEVER-ENDING 3-LANE TRACK',
+        href: 'subway-runner.html',
+        accent: '#22d3ee',
+        secondary: '#fbbf24'
+      },
+      fnaf: {
+        title: 'Night Shift (12 AM – 6 AM)',
+        meta: 'LIVE PREVIEW • WATCH CAMS & SAVE POWER',
+        href: 'fnaf-game.html',
+        accent: '#a855f7',
+        secondary: '#f43f5e'
+      },
+      xpshop: {
+        title: 'Arcade XP Shop',
+        meta: 'LIVE PREVIEW • SHOES, PHONES & HEADPHONES',
+        href: 'xp-shop.html',
+        accent: '#f59e0b',
+        secondary: '#22d3ee'
       }
     };
 
@@ -1189,7 +1587,7 @@
     function drawStageAnimation() {
       if (!canvas || !ctx || !canvas.parentElement) return;
       const w = canvas.parentElement.clientWidth || 360;
-      const h = canvas.parentElement.clientHeight || 200;
+      const h = canvas.parentElement.clientHeight || 210;
       const theme = REEL_DATA[activeReelKey] || REEL_DATA.reaction;
 
       ctx.clearRect(0, 0, w, h);
@@ -1257,6 +1655,15 @@
       });
     }
 
+    function getRedeemedXpCount() {
+      try {
+        const arr = JSON.parse(localStorage.getItem('arcade_xp_redeemed_v1') || '[]');
+        return Array.isArray(arr) ? arr.length : 0;
+      } catch {
+        return 0;
+      }
+    }
+
     function renderHubQuestSummary() {
       const api = window.ArcadeQuests;
       if (!api) return;
@@ -1265,6 +1672,7 @@
       const info = api.getLevelInfo(data.xp);
       const totalQuests = Array.isArray(data.activeQuests) ? data.activeQuests.length : 4;
       const ownedCount = Array.isArray(data.ownedItems) ? data.ownedItems.length : 0;
+      const redeemedXpCount = getRedeemedXpCount();
       const rerollCost = typeof api.REROLL_COST === 'number' ? api.REROLL_COST : 25;
 
       const levelXpEl = document.getElementById('hubLevelXp');
@@ -1277,7 +1685,7 @@
       }
       if (questsDoneEl) {
         questsDoneEl.textContent =
-          `${data.claimedIds.length} of ${totalQuests} quests completed • ${ownedCount} perk${ownedCount === 1 ? '' : 's'} owned`;
+          `${data.claimedIds.length} of ${totalQuests} quests completed • ${ownedCount} perk${ownedCount === 1 ? '' : 's'} owned • ${redeemedXpCount} XP item${redeemedXpCount === 1 ? '' : 's'} redeemed`;
       }
       if (xpMiniFillEl) {
         xpMiniFillEl.style.width = `${info.pct || 0}%`;
@@ -1309,6 +1717,3 @@
   </script>
 </body>
 </html>
-
-
-

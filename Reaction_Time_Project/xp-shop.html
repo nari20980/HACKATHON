@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade XP Shop — Shoes, Phones &amp; Headphones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="xp-shop.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">XP</div>
+      <div>
+        <h1>Arcade <span>XP Shop</span></h1>
+        <p>Spend your earned XP on shoes, phones, headphones, and gear</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="xp-counter-pill" id="xpTopCounter" aria-label="Current XP balance">
+        <span class="xp-dot" aria-hidden="true"></span>
+        <span>XP:</span>
+        <strong id="xpCounterValue">0 XP</strong>
+      </div>
+
+      <nav class="nav-actions" aria-label="Page Navigation">
+        <a class="nav-link" href="main.html">Home</a>
+        <a class="nav-link" href="quests.html">Quests</a>
+        <a class="nav-link" href="shop.html">Coin Shop</a>
+        <a class="nav-link" href="levels.html">Levels</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="xp-wrap">
+    <section class="xp-panel glass" aria-labelledby="xpShopHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-cyan">XP REWARD CATALOG</span>
+          <h2 id="xpShopHeading">Redeem Your XP</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>XP BALANCE</span><strong id="xpBalance">0 XP</strong></div>
+          <div class="stat-box"><span>CLAIMED</span><strong id="xpClaimedCount">0</strong></div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filter-tabs" role="tablist" aria-label="Filter items by category">
+          <button type="button" class="filter-btn active" data-cat="all">All Items</button>
+          <button type="button" class="filter-btn" data-cat="shoes">Shoes</button>
+          <button type="button" class="filter-btn" data-cat="phones">Phones</button>
+          <button type="button" class="filter-btn" data-cat="headphones">Headphones</button>
+          <button type="button" class="filter-btn" data-cat="gear">More Gear</button>
+        </div>
+
+        <button type="button" class="btn-bonus" id="btnGrantTestXp">+250 Test XP</button>
+      </div>
+
+      <div class="catalog-grid" id="xpCatalogGrid"></div>
+
+      <p class="status-msg" id="xpShopStatus" role="status" aria-live="polite">
+        Play games or complete quests to earn XP, then redeem it for shoes, phones, or headphones.
+      </p>
+    </section>
+  </main>
+
+  <div class="xp-popup" id="xpPopup" role="dialog" aria-live="polite" aria-label="XP item redeemed">
+    <img class="xp-popup-thumb" id="xpPopupImg" src="" alt="" />
+    <div class="xp-popup-body">
+      <span class="xp-popup-tag">XP REDEEMED</span>
+      <div class="xp-popup-title" id="xpPopupTitle">Item Redeemed</div>
+      <div class="xp-popup-sub" id="xpPopupSub">Added to your redeemed items.</div>
+    </div>
+    <button type="button" class="xp-popup-close" id="xpPopupClose" aria-label="Close pop-up">×</button>
+  </div>
+
+  <script src="arcade-quests.js"></script>
+  <script src="xp-shop.js"></script>
+</body>
+</html>

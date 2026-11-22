@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Geometry Dash — Multi-Level Rhythm Dash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="geometry-dash.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-violet" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">📐</div>
+      <div>
+        <h1>Arcade <span>Geometry Dash</span></h1>
+        <p>Jump over spikes, land on blocks, and beat 5 escalating levels</p>
+      </div>
+    </div>
+
+    <nav class="nav-actions" aria-label="Page Navigation">
+      <a class="nav-link" href="main.html">🏠 Home</a>
+      <a class="nav-link" href="subway-runner.html">🚇 Subway Runner</a>
+      <a class="nav-link" href="fnaf-game.html">🐻 Night Shift</a>
+      <a class="nav-link" href="quests.html">📜 Quests</a>
+      <a class="nav-link" href="xp-shop.html">⚡ XP Shop</a>
+    </nav>
+  </header>
+
+  <main class="dash-wrap">
+    <section class="dash-panel glass" aria-labelledby="dashHeading">
+      <div class="panel-top">
+        <div>
+          <span class="tag tag-violet" id="dashDiffTag">LEVEL 1 • EASY</span>
+          <h2 id="dashHeading">Neon Warmup</h2>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box"><span>PROGRESS</span><strong id="dashProgress">0%</strong></div>
+          <div class="stat-box"><span>ATTEMPTS</span><strong id="dashAttempts">1</strong></div>
+          <div class="stat-box"><span>BEST</span><strong id="dashBest">0%</strong></div>
+        </div>
+      </div>
+
+      <div class="level-bar" role="group" aria-label="Select Geometry Dash level">
+        <button type="button" class="lvl-btn active" data-lvl="0">1. Easy</button>
+        <button type="button" class="lvl-btn" data-lvl="1">2. Medium</button>
+        <button type="button" class="lvl-btn" data-lvl="2">3. Hard</button>
+        <button type="button" class="lvl-btn" data-lvl="3">4. Very Hard</button>
+        <button type="button" class="lvl-btn" data-lvl="4">5. Extreme</button>
+      </div>
+
+      <div class="stage-box">
+        <canvas id="dashCanvas" width="640" height="300" aria-label="Geometry Dash course"></canvas>
+      </div>
+
+      <div class="controls-bar">
+        <button type="button" class="btn-primary" id="btnDashJump">Jump (Space / Click / ↑)</button>
+        <button type="button" class="btn-secondary" id="btnDashRestart">Restart Level</button>
+      </div>
+
+      <p class="status-msg" id="dashStatus" role="status" aria-live="polite">
+        Press SPACE, W, ↑, or click/tap the stage to jump over spikes and land on blocks!
+      </p>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="geometry-dash.js"></script>
+</body>
+</html>
