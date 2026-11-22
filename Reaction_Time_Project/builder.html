@@ -21,6 +21,9 @@
     </div>
 
     <div class="hud-card">
+      <div class="stat-pill" id="biomeBadge">BIOME: PLAINS</div>
+      <div class="stat-pill" id="timeBadge">DAY (06:00)</div>
+      <div class="stat-pill" id="hpBadge">HP: 20/20</div>
       <div class="stat-pill" id="modeBadge">MODE: SURVIVAL (player)</div>
       <div class="stat-pill" id="blockLabel">Oak Planks</div>
       <div class="stat-pill" id="placedCounter">Placed: 0</div>
@@ -68,7 +71,7 @@
           <button type="button" class="craft-output" id="craftOutputBtn" title="Click to craft">
             <span class="craft-empty-text">No Recipe</span>
           </button>
-          <div class="craft-recipe-hint" id="craftRecipeHint">Tip: 2 Planks = 4 Sticks • 3 Material + 2 Sticks = Pickaxe</div>
+          <div class="craft-recipe-hint" id="craftRecipeHint">Tip: 2 Planks = 4 Sticks • 2 Sticks + 2 Tier Material = Pickaxe (Max: Diamond)</div>
         </div>
       </div>
 
@@ -106,14 +109,14 @@
   <div id="lockOverlay">
     <div class="lock-card">
       <h2>Click to Enter First-Person</h2>
-      <p>Move with <strong>WASD</strong>, jump with <strong>Space</strong>, look with <strong>Mouse</strong>, <strong>Left-Click</strong> place/mine, <strong>Right-Click</strong> break, <strong>T / /</strong> chat &amp; commands, and <strong>E</strong> for Inventory &amp; Crafting.</p>
+      <p>Move with <strong>WASD</strong>, jump with <strong>Space</strong>, look with <strong>Mouse</strong>, <strong>Left-Click</strong> attack/place/mine, <strong>Hold Right-Click</strong> to slowly break blocks in Survival, <strong>T / /</strong> chat &amp; commands, and <strong>E</strong> for Inventory &amp; Crafting.</p>
       <button type="button" class="hud-btn primary" id="btnOverlayStart">Start Exploring</button>
     </div>
   </div>
 
   <div class="hotbar-wrap">
     <div class="hotbar" id="hotbar" role="listbox" aria-label="Block and tool hotbar"></div>
-    <div class="help-strip">WASD Move • Space Jump • LMB Place/Use • RMB Mine • T/Slash Chat &amp; Cmds • E Inventory/Craft</div>
+    <div class="help-strip">WASD Move • Space Jump • Hold RMB Slowly Mine • LMB Attack/Place • T/Slash Chat • E Inventory</div>
   </div>
 
   <script src="arcade-quests.js"></script>
