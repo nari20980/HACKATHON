@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Scribble.io — Draw &amp; Guess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="skribbl.css" />
+</head>
+<body>
+  <main class="shell">
+    <!-- Top Status & Word Hint Bar -->
+    <header class="topbar">
+      <div class="brand-group">
+        <a class="btn" href="main.html">Home</a>
+        <div class="brand">Scribble<span>.io</span></div>
+      </div>
+
+      <div class="round-hud">
+        <div class="timer-orb" id="timerVal">60</div>
+        <div class="word-box">
+          <span class="role-tag" id="roleTag">GUESS THIS</span>
+          <div class="word-mask" id="wordMask">_ _ _ _ _</div>
+        </div>
+        <div class="round-pill" id="roundPill">Round 1 / 5</div>
+      </div>
+
+      <div class="top-actions">
+        <button type="button" class="btn" id="btnSwitchRole">Role: Guesser</button>
+        <button type="button" class="btn primary" id="btnNewGame">New Game</button>
+      </div>
+    </header>
+
+    <!-- 3-Column Skribbl Layout: Players | Canvas + Tools | Live Guess Chat -->
+    <section class="game-layout">
+      <!-- Left: Scoreboard / Players -->
+      <aside class="card players-card" aria-label="Players">
+        <div class="panel-head">
+          <h2>Players</h2>
+          <span class="mini-badge">LIVE</span>
+        </div>
+        <div class="player-list" id="playerList"></div>
+      </aside>
+
+      <!-- Center: Drawing Canvas & Brush Toolbar -->
+      <div class="card board-card">
+        <div class="canvas-wrap">
+          <canvas id="drawCanvas" width="760" height="500"></canvas>
+
+          <!-- Word Choice / Round End Overlay -->
+          <div class="board-overlay" id="boardOverlay">
+            <span class="overlay-tag" id="overlayTag">CHOOSE A WORD TO DRAW</span>
+            <h2 id="overlayTitle">Pick Your Secret Word</h2>
+            <p id="overlaySub">Bots will watch your strokes and try to guess in real time!</p>
+            <div class="word-choices" id="wordChoices"></div>
+          </div>
+        </div>
+
+        <!-- Toolbar (Active when You are Drawing) -->
+        <div class="toolbar" id="drawToolbar">
+          <div class="palette" id="colorPalette" role="group" aria-label="Brush colors"></div>
+
+          <div class="tool-group">
+            <button type="button" class="tool-btn active" data-tool="brush" title="Brush">🖌️ Brush</button>
+            <button type="button" class="tool-btn" data-tool="fill" title="Fill Canvas">🪣 Fill</button>
+            <button type="button" class="tool-btn" data-tool="eraser" title="Eraser">🧽 Erase</button>
+            <button type="button" class="tool-btn" id="btnUndo" title="Undo Stroke">↩️ Undo</button>
+            <button type="button" class="tool-btn danger" id="btnClear" title="Clear Canvas">🗑️ Clear</button>
+          </div>
+
+          <div class="size-group" role="group" aria-label="Brush size">
+            <button type="button" class="size-btn" data-size="4" aria-label="Small brush"><span style="width:6px;height:6px"></span></button>
+            <button type="button" class="size-btn active" data-size="9" aria-label="Medium brush"><span style="width:11px;height:11px"></span></button>
+            <button type="button" class="size-btn" data-size="18" aria-label="Large brush"><span style="width:17px;height:17px"></span></button>
+            <button type="button" class="size-btn" data-size="28" aria-label="Extra large brush"><span style="width:23px;height:23px"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Guess & System Chat -->
+      <aside class="card chat-card" aria-label="Guesses and Chat">
+        <div class="panel-head">
+          <h2>Guesses &amp; Chat</h2>
+          <span class="mini-badge emerald" id="guessCounter">0 Guessed</span>
+        </div>
+
+        <div class="chat-feed" id="chatFeed" role="log" aria-live="polite"></div>
+
+        <form class="chat-form" id="guessForm" autocomplete="off">
+          <input
+            type="text"
+            id="guessInput"
+            class="guess-input"
+            placeholder="Type your guess here..."
+            maxlength="40"
+            aria-label="Type your guess"
+          />
+          <button type="submit" class="btn primary">Guess</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <script src="arcade-quests.js"></script>
+  <script src="skribbl.js"></script>
+</body>
+</html>
